@@ -1,3 +1,3 @@
-# transaction-parser
+# Transaction SMS Parser
 
-A library to parse transaction sms text
+A library to parse transaction sms text to give relevant information from it. 
