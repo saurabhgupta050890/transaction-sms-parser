@@ -1,5 +1,5 @@
-import { getAccountInfo } from './account';
-import { getBalance } from './balance';
+import getAccountInfo from './account';
+import getBalance from './balance';
 import { IAccountType, ITransactionInfo, TMessageType } from './interface';
 import { getProcessedMessage, padCurrencyValue, processMessage } from './utils';
 
@@ -11,29 +11,26 @@ export const getTransactionAmount = (message: TMessageType): string => {
   // Return ""
   if (index === -1) {
     return '';
-  } else {
-    let money = message[index + 1];
-
-    money = money.replace(/,/g, '');
-
-    // If data is false positive
-    // Look ahead one index and check for valid money
-    // Else return the found money
-    if (isNaN(Number(money))) {
-      money = message[index + 2];
-      money = money?.replace(/,/g, '');
-
-      // If this is also false positive, return ""
-      // Else return the found money
-      if (isNaN(Number(money))) {
-        return '';
-      } else {
-        return padCurrencyValue(money);
-      }
-    } else {
-      return padCurrencyValue(money);
-    }
   }
+  let money = message[index + 1];
+
+  money = money.replace(/,/g, '');
+
+  // If data is false positive
+  // Look ahead one index and check for valid money
+  // Else return the found money
+  if (Number.isNaN(Number(money))) {
+    money = message[index + 2];
+    money = money?.replace(/,/g, '');
+
+    // If this is also false positive, return ""
+    // Else return the found money
+    if (Number.isNaN(Number(money))) {
+      return '';
+    }
+    return padCurrencyValue(money);
+  }
+  return padCurrencyValue(money);
 };
 
 export const getTransactionType = (message: TMessageType) => {
@@ -42,15 +39,15 @@ export const getTransactionType = (message: TMessageType) => {
   const miscPattern =
     /(?:payment|spent|paid|used\sat|charged|transaction\son|transaction\sfee|tran)/gi;
 
-  if (typeof message !== 'string') {
-    message = message.join(' ');
-  }
+  const messageStr = typeof message !== 'string' ? message.join(' ') : message;
 
-  if (debitPattern.test(message)) {
+  if (debitPattern.test(messageStr)) {
     return 'debit';
-  } else if (creditPattern.test(message)) {
+  }
+  if (creditPattern.test(messageStr)) {
     return 'credit';
-  } else if (miscPattern.test(message)) {
+  }
+  if (miscPattern.test(messageStr)) {
     return 'debit';
   }
 
@@ -78,9 +75,9 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
       .length >= 2;
   const transactionType = isValid ? getTransactionType(processedMessage) : '';
 
-  //console.log(processedMessage);
-  //console.log(account, balance, transactionAmount, transactionType);
-  //console.log('-----------------------------------------------------');
+  // console.log(processedMessage);
+  // console.log(account, balance, transactionAmount, transactionType);
+  // console.log('-----------------------------------------------------');
   return {
     account,
     balance,

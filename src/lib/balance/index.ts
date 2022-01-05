@@ -8,58 +8,58 @@ const extractBalance = (
   length: number
 ): string => {
   let balance = '';
-  let saw_number = false;
-  let invalid_char_count = 0;
+  let sawNumber = false;
+  let invalidCharCount = 0;
   let char = '';
+  let start = index;
+  while (start < length) {
+    char = message[start];
 
-  while (index < length) {
-    char = message[index];
-
-    if ('0' <= char && char <= '9') {
-      saw_number = true;
+    if (char >= '0' && char <= '9') {
+      sawNumber = true;
       // is_start = false;
       balance += char;
-    } else {
-      if (saw_number) {
-        if (char === '.') {
-          if (invalid_char_count === 1) {
-            break;
-          } else {
-            balance += char;
-            invalid_char_count += 1;
-          }
-        } else if (char !== ',') {
+    } else if (sawNumber) {
+      if (char === '.') {
+        if (invalidCharCount === 1) {
           break;
+        } else {
+          balance += char;
+          invalidCharCount += 1;
         }
+      } else if (char !== ',') {
+        break;
       }
     }
 
-    ++index;
+    start += 1;
   }
 
   return balance;
 };
 
-export const getBalance = (message: TMessageType) => {
+const getBalance = (message: TMessageType) => {
   const processedMessage = getProcessedMessage(message);
   const messageString = processedMessage.join(' ');
-  let index_of_keyword = -1;
+  let indexOfKeyword = -1;
   let balance = '';
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const word of balanceKeywords) {
-    index_of_keyword = messageString.indexOf(word);
+    indexOfKeyword = messageString.indexOf(word);
 
-    if (index_of_keyword !== -1) {
-      index_of_keyword += word.length;
+    if (indexOfKeyword !== -1) {
+      indexOfKeyword += word.length;
       break;
     } else {
+      // eslint-disable-next-line no-continue
       continue;
     }
   }
 
   // found the index of keyword, moving on to finding 'rs.' occuring after index_of_keyword
-  let index = index_of_keyword;
-  let index_of_rs = -1;
+  let index = indexOfKeyword;
+  let indexOfRs = -1;
   let nextThreeChars = messageString.substr(index, 3);
 
   index += 3;
@@ -71,19 +71,21 @@ export const getBalance = (message: TMessageType) => {
     nextThreeChars += messageString[index];
 
     if (nextThreeChars === 'rs.') {
-      index_of_rs = index + 2;
+      indexOfRs = index + 2;
       break;
     }
 
-    ++index;
+    index += 1;
   }
 
   // no occurence of 'rs.'
-  if (index_of_rs === -1) {
+  if (indexOfRs === -1) {
     return '';
   }
 
-  balance = extractBalance(index_of_rs, messageString, messageString.length);
+  balance = extractBalance(indexOfRs, messageString, messageString.length);
 
   return padCurrencyValue(balance);
 };
+
+export default getBalance;

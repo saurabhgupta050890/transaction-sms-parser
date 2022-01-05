@@ -8,3 +8,4 @@ src/**.js
 coverage
 *.log
 yarn.lock
+src/lib/engine.spec.ts

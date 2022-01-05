@@ -4,67 +4,63 @@ import { TMessageType } from './interface';
 export const trimLeadingAndTrailingChars = (str: string): string => {
   const [first, last] = [str[0], str[str.length - 1]];
 
-  if (isNaN(Number(last))) {
-    str = str.slice(0, -1);
-  }
-  if (isNaN(Number(first))) {
-    str = str.slice(1);
-  }
+  let finalStr = Number.isNaN(Number(last)) ? str.slice(0, -1) : str;
+  finalStr = Number.isNaN(Number(first)) ? str.slice(1) : finalStr;
 
-  return str;
+  return finalStr;
 };
 
 export const extractBondedAccountNo = (accountNo: string): string => {
   const strippedAccountNo = accountNo.replace('ac', '');
-  return isNaN(Number(strippedAccountNo)) ? '' : strippedAccountNo;
+  return Number.isNaN(Number(strippedAccountNo)) ? '' : strippedAccountNo;
 };
 
 export const processMessage = (message: string): string[] => {
   // convert to lower case
-  message = message.toLowerCase();
+  let messageStr = message.toLowerCase();
   // remove '-'
-  message = message.replace(/-/g, '');
+  messageStr = messageStr.replace(/-/g, '');
   // remove ':'
-  message = message.replace(/:/g, ' ');
+  messageStr = messageStr.replace(/:/g, ' ');
   // remove '/'
-  message = message.replace(/\//g, '');
+  messageStr = messageStr.replace(/\//g, '');
   // remove '='
-  message = message.replace(/=/g, ' ');
+  messageStr = messageStr.replace(/=/g, ' ');
   // remove '{}'
-  message = message.replace(/[{}]/g, ' ');
+  messageStr = messageStr.replace(/[{}]/g, ' ');
   // remove \n
-  message = message.replace(/\n/g, ' ');
+  messageStr = messageStr.replace(/\n/g, ' ');
   // remove 'ending'
-  message = message.replace(/ending /g, '');
+  messageStr = messageStr.replace(/ending /g, '');
   // replace 'x'
-  message = message.replace(/x|[*]/g, '');
+  messageStr = messageStr.replace(/x|[*]/g, '');
   // // remove 'is' 'with'
   // message = message.replace(/\bis\b|\bwith\b/g, '');
   // replace 'is'
-  message = message.replace(/is /g, '');
+  messageStr = messageStr.replace(/is /g, '');
   // replace 'with'
-  message = message.replace(/with /g, '');
+  messageStr = messageStr.replace(/with /g, '');
   // remove 'no.'
-  message = message.replace(/no. /g, '');
+  messageStr = messageStr.replace(/no. /g, '');
   // replace all ac, acct, account with ac
-  message = message.replace(/\bac\b|\bacct\b|\baccount\b/g, 'ac');
+  messageStr = messageStr.replace(/\bac\b|\bacct\b|\baccount\b/g, 'ac');
   // replace all 'rs' with 'rs. '
-  message = message.replace(/rs(?=\w)/g, 'rs. ');
+  messageStr = messageStr.replace(/rs(?=\w)/g, 'rs. ');
   // replace all 'rs ' with 'rs. '
-  message = message.replace(/rs /g, 'rs. ');
+  messageStr = messageStr.replace(/rs /g, 'rs. ');
   // replace all inr with rs.
-  message = message.replace(/inr(?=\w)/g, 'rs. ');
+  messageStr = messageStr.replace(/inr(?=\w)/g, 'rs. ');
   //
-  message = message.replace(/inr /g, 'rs. ');
+  messageStr = messageStr.replace(/inr /g, 'rs. ');
   // replace all 'rs. ' with 'rs.'
-  message = message.replace(/rs. /g, 'rs.');
+  messageStr = messageStr.replace(/rs. /g, 'rs.');
   // replace all 'rs.' with 'rs. '
-  message = message.replace(/rs.(?=\w)/g, 'rs. ');
+  messageStr = messageStr.replace(/rs.(?=\w)/g, 'rs. ');
   // combine words
   combinedWords.forEach((word) => {
-    message = message.replace(word.regex, word.word);
+    messageStr = messageStr.replace(word.regex, word.word);
   });
-  return message.split(' ').filter((str) => str !== '');
+  return messageStr.split(' ').filter((str) => str !== '');
 };
 
 export const getProcessedMessage = (message: TMessageType) => {

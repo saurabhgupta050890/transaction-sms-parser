@@ -7,20 +7,19 @@ import {
 } from '../utils';
 
 const getCard = (message: string[]): IAccountInfo => {
-  //console.log('card check', message);
+  // console.log('card check', message);
   let isCombinedCreditWordExists = false;
   const cardIndex = message.findIndex(
     (word) =>
       word === 'card' ||
-      combinedWords //Any combined word of card type
+      combinedWords // Any combined word of card type
         .filter((w) => w.type === IAccountType.CARD)
         .some((w) => {
           if (w.word === word) {
             isCombinedCreditWordExists = true;
             return true;
-          } else {
-            return false;
           }
+          return false;
         })
   );
   const card: IAccountInfo = { type: null };
@@ -30,24 +29,22 @@ const getCard = (message: string[]): IAccountInfo => {
     card.number = message[cardIndex + 1];
     card.type = IAccountType.CARD;
 
-    //console.log('card::', card);
+    // console.log('card::', card);
 
     // If the data is false positive
     // return empty obj
     // Else return the card info
-    if (isNaN(Number(card.number))) {
+    if (Number.isNaN(Number(card.number))) {
       return {
         type: isCombinedCreditWordExists ? card.type : null,
       };
-    } else {
-      return card;
     }
-  } else {
-    return { type: null };
+    return card;
   }
+  return { type: null };
 };
 
-export const getAccountInfo = (message: TMessageType): IAccountInfo => {
+const getAccountInfo = (message: TMessageType): IAccountInfo => {
   const processedMessage = getProcessedMessage(message);
   let accountIndex = -1;
   let account: IAccountInfo = {
@@ -55,6 +52,7 @@ export const getAccountInfo = (message: TMessageType): IAccountInfo => {
     number: '',
   };
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const [index, word] of processedMessage.entries()) {
     if (word === 'ac') {
       if (index + 1 < processedMessage.length) {
@@ -62,8 +60,9 @@ export const getAccountInfo = (message: TMessageType): IAccountInfo => {
           processedMessage[index + 1]
         );
 
-        if (isNaN(Number(accountNo))) {
+        if (Number.isNaN(Number(accountNo))) {
           // continue searching for a valid account number
+          // eslint-disable-next-line no-continue
           continue;
         } else {
           accountIndex = index;
@@ -73,12 +72,14 @@ export const getAccountInfo = (message: TMessageType): IAccountInfo => {
         }
       } else {
         // continue searching for a valid account number
+        // eslint-disable-next-line no-continue
         continue;
       }
     } else if (word.includes('ac')) {
       const extractedAccountNo = extractBondedAccountNo(word);
 
       if (extractedAccountNo === '') {
+        // eslint-disable-next-line no-continue
         continue;
       } else {
         accountIndex = index;
@@ -118,3 +119,5 @@ export const getAccountInfo = (message: TMessageType): IAccountInfo => {
 
   return account;
 };
+
+export default getAccountInfo;
