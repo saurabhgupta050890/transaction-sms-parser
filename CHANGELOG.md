@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/saurabhgupta050890/transaction-parser/compare/v1.0.2...v1.0.3) (2022-01-05)
+
+
+### Bug Fixes
+
+* export renames ([13823f4](https://github.com/saurabhgupta050890/transaction-parser/commit/13823f4a497142ef2ccc2961fb93ced5fb6d2ee8))
+
 ### [1.0.2](https://github.com/saurabhgupta050890/transaction-parser/compare/v1.0.1...v1.0.2) (2022-01-05)
 
 
