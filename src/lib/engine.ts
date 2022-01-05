@@ -1,4 +1,4 @@
-import getAccountInfo from './account';
+import getAccount from './account';
 import getBalance from './balance';
 import { IAccountType, ITransactionInfo, TMessageType } from './interface';
 import { getProcessedMessage, padCurrencyValue, processMessage } from './utils';
@@ -67,7 +67,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
   }
 
   const processedMessage = processMessage(message);
-  const account = getAccountInfo(processedMessage);
+  const account = getAccount(processedMessage);
   const balance = getBalance(processedMessage);
   const transactionAmount = getTransactionAmount(processedMessage);
   const isValid =

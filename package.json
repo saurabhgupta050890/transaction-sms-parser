@@ -31,8 +31,8 @@
     "cov:send": "run-s cov:lcov && codecov",
     "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
     "doc": "run-s doc:html && open-cli build/docs/index.html",
-    "doc:html": "typedoc src/index.ts --exclude **/*.spec.ts --out build/docs",
-    "doc:json": "typedoc src/index.ts --exclude **/*.spec.ts --json build/docs/typedoc.json",
+    "doc:html": "typedoc src/ --exclude **/*.spec.ts --out build/docs",
+    "doc:json": "typedoc src/ --exclude **/*.spec.ts --json build/docs/typedoc.json",
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
@@ -63,6 +63,7 @@
     "standard-version": "^9.3.2",
     "ts-node": "^10.4.0",
     "typedoc": "^0.22.10",
+    "typedoc-plugin-missing-exports": "^0.22.6",
     "typescript": "^4.5.4"
   },
   "files": [

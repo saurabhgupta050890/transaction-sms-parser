@@ -44,7 +44,7 @@ const getCard = (message: string[]): IAccountInfo => {
   return { type: null };
 };
 
-const getAccountInfo = (message: TMessageType): IAccountInfo => {
+const getAccount = (message: TMessageType): IAccountInfo => {
   const processedMessage = getProcessedMessage(message);
   let accountIndex = -1;
   let account: IAccountInfo = {
@@ -120,4 +120,4 @@ const getAccountInfo = (message: TMessageType): IAccountInfo => {
   return account;
 };
 
-export default getAccountInfo;
+export default getAccount;

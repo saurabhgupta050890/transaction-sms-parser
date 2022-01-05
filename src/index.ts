@@ -1,3 +1,6 @@
+import getAccount from './lib/account';
+import getBalance from './lib/balance';
+
 export * from './lib/engine';
-export * as getAccountInfo from './lib/account';
-export * as getBalance from './lib/balance';
+export const getAccountInfo = getAccount;
+export const getBalanceInfo = getBalance;
