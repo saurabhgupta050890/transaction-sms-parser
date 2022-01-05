@@ -36,7 +36,7 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
+    "prepare-release": "run-s test cov:check doc:html version doc:publish"
   },
   "engines": {
     "node": ">=10"
@@ -85,6 +85,9 @@
     },
     "files": [
       "!build/module/**"
+    ],
+    "require": [
+      "ts-node/register"
     ]
   },
   "config": {
