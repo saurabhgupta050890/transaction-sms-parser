@@ -1,6 +1,6 @@
 # Transaction SMS Parser
 
-A library to parse transaction sms text to extract relevant information from it. A naive implemetation using mostly regular expressions. 
+A library to parse transaction sms text to extract relevant information from it. A naive implementation using mostly regular expressions. 
 
 ## How to use
 
@@ -78,7 +78,7 @@ Credit Cards:
 - Uni Card
 - Indusind Bank
 
-Wallets/Paylater
+Wallets
 
 - Paytm
 - Amazon pay

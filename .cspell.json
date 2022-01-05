@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
   "language": "en",
   "words": [
@@ -22,6 +22,25 @@
     "transpiled",
     "typedoc",
     "untracked"
+  ],
+  "ignoreWords": [
+    "Axis",
+    "ICICI",
+    "Kotak",
+    "HDFC",
+    "Standard Charted",
+    "IDFC",
+    "Niyo",
+    "HSBC",
+    "Citi",
+    "Sodexo",
+    "ICICI",
+    "Uni Card",
+    "Indusind",
+    "Paytm",
+    "Amazon pay",
+    "Lazypay",
+    "Simpl"
   ],
   "flagWords": [],
   "ignorePaths": [
