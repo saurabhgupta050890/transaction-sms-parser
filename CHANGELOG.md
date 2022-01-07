@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.0.4...v1.0.5) (2022-01-07)
+
+
+### Bug Fixes
+
+* fixed prettier and cspell errors ([44f53a8](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/44f53a8e8688a015531c336d018d6b741846d59f))
+
 ### [1.0.4](https://github.com/saurabhgupta050890/transaction-parser/compare/v1.0.3...v1.0.4) (2022-01-05)
 
 ### [1.0.3](https://github.com/saurabhgupta050890/transaction-parser/compare/v1.0.2...v1.0.3) (2022-01-05)
