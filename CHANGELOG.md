@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.0.5...v1.0.6) (2022-01-11)
+
+
+### Bug Fixes
+
+* amazon pay balance fix ([57d7868](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/57d78687009e6d19b57d4c437ad4349328ac8104))
+* card name in account info for known card types ([54ea2d5](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/54ea2d50d81f4b4628afa3d05671f15ffb46deca))
+
 ### [1.0.5](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.0.4...v1.0.5) (2022-01-07)
 
 
