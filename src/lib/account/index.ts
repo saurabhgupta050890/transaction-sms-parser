@@ -7,8 +7,7 @@ import {
 } from '../utils';
 
 const getCard = (message: string[]): IAccountInfo => {
-  // console.log('card check', message);
-  let isCombinedCreditWordExists = false;
+  let combinedCardName;
   const cardIndex = message.findIndex(
     (word) =>
       word === 'card' ||
@@ -16,7 +15,7 @@ const getCard = (message: string[]): IAccountInfo => {
         .filter((w) => w.type === IAccountType.CARD)
         .some((w) => {
           if (w.word === word) {
-            isCombinedCreditWordExists = true;
+            combinedCardName = w.word;
             return true;
           }
           return false;
@@ -29,14 +28,13 @@ const getCard = (message: string[]): IAccountInfo => {
     card.number = message[cardIndex + 1];
     card.type = IAccountType.CARD;
 
-    // console.log('card::', card);
-
     // If the data is false positive
     // return empty obj
     // Else return the card info
     if (Number.isNaN(Number(card.number))) {
       return {
-        type: isCombinedCreditWordExists ? card.type : null,
+        type: combinedCardName ? card.type : null,
+        name: combinedCardName,
       };
     }
     return card;
