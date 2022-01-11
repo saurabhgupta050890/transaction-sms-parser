@@ -38,6 +38,17 @@ const extractBalance = (
   return balance;
 };
 
+const findNonStandardBalance = (message: string) => {
+  const balRegex = `(${balanceKeywords.join('|')})`.replace('/', '\\/');
+  const regex = new RegExp(`${balRegex}\\s*[\\d]+\\.*[\\d]*`, 'gi');
+  const matches = message.match(regex);
+  if (matches && matches.length > 0) {
+    const balance = matches[0].split(' ').pop(); // return only first match
+    return Number.isNaN(Number(balance)) ? '' : balance;
+  }
+  return '';
+};
+
 const getBalance = (message: TMessageType) => {
   const processedMessage = getProcessedMessage(message);
   const messageString = processedMessage.join(' ');
@@ -57,7 +68,7 @@ const getBalance = (message: TMessageType) => {
     }
   }
 
-  // found the index of keyword, moving on to finding 'rs.' occuring after index_of_keyword
+  // found the index of keyword, moving on to finding 'rs.' occuring after indexOfKeyword
   let index = indexOfKeyword;
   let indexOfRs = -1;
   let nextThreeChars = messageString.substr(index, 3);
@@ -80,7 +91,9 @@ const getBalance = (message: TMessageType) => {
 
   // no occurence of 'rs.'
   if (indexOfRs === -1) {
-    return '';
+    // check for non standard balance
+    balance = findNonStandardBalance(messageString);
+    return balance ? padCurrencyValue(balance) : '';
   }
 
   balance = extractBalance(indexOfRs, messageString, messageString.length);
