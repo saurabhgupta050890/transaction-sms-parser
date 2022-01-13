@@ -1,6 +1,6 @@
 {
   "name": "transaction-sms-parser",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "A library to parse transaction sms text",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.0.6...v1.1.0) (2022-01-13)
+
+
+### Features
+
+* support for slice card ([01b1fa5](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/01b1fa51c1d6031e82adf5dcc7c7c6364e234719))
+
 ### [1.0.6](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.0.5...v1.0.6) (2022-01-11)
 
 
