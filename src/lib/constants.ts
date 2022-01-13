@@ -38,4 +38,9 @@ export const combinedWords: ICombinedWords[] = [
     word: 'niyo',
     type: IAccountType.ACCOUNT,
   },
+  {
+    regex: /slice\scard/g,
+    word: 'slice_card',
+    type: IAccountType.CARD,
+  },
 ];

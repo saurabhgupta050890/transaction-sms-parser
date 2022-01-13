@@ -76,5 +76,5 @@ export const getProcessedMessage = (message: TMessageType) => {
 
 export const padCurrencyValue = (val: string): string => {
   const [lhs, rhs] = val.split('.');
-  return rhs === null || rhs === undefined ? `${lhs}.00` : val;
+  return `${lhs}.${(rhs ?? '').padEnd(2, '0')}`;
 };
