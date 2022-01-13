@@ -77,6 +77,7 @@ Credit Cards:
 - ICICI
 - Uni Card
 - Indusind Bank
+- Slice Card
 
 Wallets
 
