@@ -15,13 +15,15 @@
     "personal finance"
   ],
   "scripts": {
+    "clean:build": "npx rimraf build",
+    "clean:spec": "npx rimraf build/**/*.spec.*",
     "build": "run-p build:*",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint src --ext .ts --fix",
-    "test": "run-s build test:*",
+    "test": "run-s clean:build build test:*",
     "test:lint": "eslint src --ext .ts",
     "test:prettier": "prettier \"src/**/*.ts\" --list-different",
     "test:spelling": "cspell \"{README.md,.github/*.md}\"",
@@ -42,7 +44,7 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
+    "prepare-release": "run-s test doc:html doc:publish clean:spec version"
   },
   "engines": {
     "node": ">=10"
@@ -66,6 +68,7 @@
     "nyc": "^15.1.0",
     "open-cli": "^7.0.1",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "standard-version": "^9.3.2",
     "ts-node": "^10.4.0",
     "typedoc": "^0.22.10",
