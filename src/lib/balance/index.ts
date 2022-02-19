@@ -1,5 +1,8 @@
-import { balanceKeywords } from '../constants';
-import { TMessageType } from '../interface';
+import {
+  availableBalanceKeywords,
+  outstandingBalanceKeywords,
+} from '../constants';
+import { IBalanceKeyWordsType, TMessageType } from '../interface';
 import { getProcessedMessage, padCurrencyValue } from '../utils';
 
 const extractBalance = (
@@ -38,7 +41,15 @@ const extractBalance = (
   return balance;
 };
 
-const findNonStandardBalance = (message: string) => {
+const findNonStandardBalance = (
+  message: string,
+  keyWordType: IBalanceKeyWordsType = IBalanceKeyWordsType.AVAILABLE
+) => {
+  const balanceKeywords =
+    keyWordType === IBalanceKeyWordsType.AVAILABLE
+      ? availableBalanceKeywords
+      : outstandingBalanceKeywords;
+
   const balRegex = `(${balanceKeywords.join('|')})`.replace('/', '\\/');
   const regex = new RegExp(`${balRegex}\\s*[\\d]+\\.*[\\d]*`, 'gi');
   const matches = message.match(regex);
@@ -49,11 +60,19 @@ const findNonStandardBalance = (message: string) => {
   return '';
 };
 
-const getBalance = (message: TMessageType) => {
+const getBalance = (
+  message: TMessageType,
+  keyWordType: IBalanceKeyWordsType = IBalanceKeyWordsType.AVAILABLE
+) => {
   const processedMessage = getProcessedMessage(message);
   const messageString = processedMessage.join(' ');
   let indexOfKeyword = -1;
   let balance = '';
+
+  const balanceKeywords =
+    keyWordType === IBalanceKeyWordsType.AVAILABLE
+      ? availableBalanceKeywords
+      : outstandingBalanceKeywords;
 
   // eslint-disable-next-line no-restricted-syntax
   for (const word of balanceKeywords) {

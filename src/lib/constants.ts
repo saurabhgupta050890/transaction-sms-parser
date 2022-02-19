@@ -1,6 +1,6 @@
 import { IAccountType, ICombinedWords } from './interface';
 
-export const balanceKeywords = [
+export const availableBalanceKeywords = [
   'avbl bal',
   'available balance',
   'available limit',
@@ -14,6 +14,8 @@ export const balanceKeywords = [
   'new balance',
   'bal',
 ];
+
+export const outstandingBalanceKeywords = ['outstanding'];
 
 export const wallets = ['paytm', 'simpl', 'lazypay', 'amazon_pay'];
 
