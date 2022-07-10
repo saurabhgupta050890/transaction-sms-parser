@@ -42,8 +42,8 @@ export const getTransactionAmount = (message: TMessageType): string => {
 export const getTransactionType = (message: TMessageType) => {
   const creditPattern = /(?:credited|credit|deposited|added|received|refund)/gi;
   const debitPattern = /(?:debited|debit|deducted)/gi;
-  const miscPattern = /(?:payment|spent|paid|used\sat|charged|transaction\son|transaction\sfee|tran|booked|purchased)/gi;
-
+  const miscPattern =
+    /(?:payment|spent|paid|used\sat|charged|transaction\son|transaction\sfee|tran|booked|purchased)/gi;
 
   const messageStr = typeof message !== 'string' ? message.join(' ') : message;
 
