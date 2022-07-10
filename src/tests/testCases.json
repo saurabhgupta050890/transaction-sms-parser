@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Sample Account debit",
+        "message": "INR 2000 debited from A/c no. XX3423 on date IST at SMAPLE Avl Bal- INR 2343.23.",
+        "accountType": "ACCOUNT",
+        "accountNumber": 3423,
+        "transactionAmount": 2000,
+        "transactionType": "debit",
+        "balanceAvailable": 2343.23
+    }
+]
