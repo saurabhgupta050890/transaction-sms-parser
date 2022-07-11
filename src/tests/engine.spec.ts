@@ -8,22 +8,24 @@ import { padCurrencyValue } from '../lib/utils';
 
 import testCases from './testCases.json';
 
-testCases.forEach((testCase) => {
-  test(testCase.name, (t) => {
+testCases.forEach((testCase, index) => {
+  test(`${testCase.name}-${index}`, (t) => {
     const expected: ITransactionInfo = {
       account: { type: testCase.accountType as IAccountType },
-      transactionAmount: padCurrencyValue(`${testCase.transactionAmount}`),
+      transactionAmount: testCase.transactionAmount
+        ? padCurrencyValue(`${testCase.transactionAmount}`)
+        : '',
       transactionType: testCase.transactionType as 'debit' | 'credit' | '',
     };
 
-    if (testCase.balanceAvailable) {
-      expected.balance = {
-        available: padCurrencyValue(`${testCase.balanceAvailable}`),
-      };
-    }
+    expected.balance = {
+      available: testCase.balanceAvailable
+        ? padCurrencyValue(`${testCase.balanceAvailable}`)
+        : '',
+    };
 
     // @ts-ignore
-    if (testCase.balanceOutstanding) {
+    if (testCase.balanceoutstanding) {
       expected.balance.outstanding = padCurrencyValue(
         // @ts-ignore
         `${testCase.balanceOutstanding}`
