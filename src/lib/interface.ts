@@ -11,22 +11,23 @@ export enum IBalanceKeyWordsType {
 
 export interface IAccountInfo {
   type: IAccountType | null;
-  number?: string;
-  name?: string;
+  number: string | null;
+  name: string | null;
 }
 
 export interface IBalance {
-  available: string;
-  outstanding?: string;
+  available: string | null;
+  outstanding: string | null;
 }
 
 export type TMessageType = string | string[];
+export type TTransactionType = 'debit' | 'credit' | null;
 
 export interface ITransactionInfo {
   account: IAccountInfo;
-  transactionAmount: string;
-  balance?: IBalance;
-  transactionType: 'debit' | 'credit' | '';
+  transactionAmount: string | null;
+  transactionType: TTransactionType;
+  balance: IBalance | null;
 }
 
 export interface ICombinedWords {

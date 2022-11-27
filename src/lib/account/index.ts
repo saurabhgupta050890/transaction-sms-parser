@@ -7,7 +7,7 @@ import {
 } from '../utils';
 
 const getCard = (message: string[]): IAccountInfo => {
-  let combinedCardName;
+  let combinedCardName = '';
   const cardIndex = message.findIndex(
     (word) =>
       word === 'card' ||
@@ -21,7 +21,7 @@ const getCard = (message: string[]): IAccountInfo => {
           return false;
         })
   );
-  const card: IAccountInfo = { type: null };
+  const card: IAccountInfo = { type: null, name: null, number: null };
 
   // Search for "card" and if not found return empty obj
   if (cardIndex !== -1) {
@@ -35,11 +35,12 @@ const getCard = (message: string[]): IAccountInfo => {
       return {
         type: combinedCardName ? card.type : null,
         name: combinedCardName,
+        number: null,
       };
     }
     return card;
   }
-  return { type: null };
+  return { type: null, name: null, number: null };
 };
 
 const getAccount = (message: TMessageType): IAccountInfo => {
@@ -47,7 +48,8 @@ const getAccount = (message: TMessageType): IAccountInfo => {
   let accountIndex = -1;
   let account: IAccountInfo = {
     type: null,
-    number: '',
+    name: null,
+    number: null,
   };
 
   // eslint-disable-next-line no-restricted-syntax

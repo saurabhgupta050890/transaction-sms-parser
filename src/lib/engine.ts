@@ -6,6 +6,7 @@ import {
   IBalanceKeyWordsType,
   ITransactionInfo,
   TMessageType,
+  TTransactionType,
 } from './interface';
 import { getProcessedMessage, padCurrencyValue, processMessage } from './utils';
 
@@ -39,7 +40,7 @@ export const getTransactionAmount = (message: TMessageType): string => {
   return padCurrencyValue(money);
 };
 
-export const getTransactionType = (message: TMessageType) => {
+export const getTransactionType = (message: TMessageType): TTransactionType => {
   const creditPattern = /(?:credited|credit|deposited|added|received|refund)/gi;
   const debitPattern = /(?:debited|debit|deducted)/gi;
   const miscPattern =
@@ -57,7 +58,7 @@ export const getTransactionType = (message: TMessageType) => {
     return 'debit';
   }
 
-  return '';
+  return null;
 };
 
 export const getTransactionInfo = (message: string): ITransactionInfo => {
@@ -65,10 +66,12 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     return {
       account: {
         type: IAccountType.ACCOUNT,
+        number: null,
+        name: null,
       },
-      transactionAmount: '',
-      balance: { available: '' },
-      transactionType: '',
+      transactionAmount: null,
+      balance: null,
+      transactionType: null,
     };
   }
 
@@ -83,8 +86,8 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     [availableBalance, transactionAmount, account.number].filter(
       (x) => x !== ''
     ).length >= 2;
-  const transactionType = isValid ? getTransactionType(processedMessage) : '';
-  const balance: IBalance = { available: availableBalance };
+  const transactionType = isValid ? getTransactionType(processedMessage) : null;
+  const balance: IBalance = { available: availableBalance, outstanding: null };
 
   if (account && account.type === IAccountType.CARD) {
     balance.outstanding = getBalance(
