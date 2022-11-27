@@ -11,13 +11,7 @@ const testCasesJSONPath = path.join(
 );
 
 const result = excelToJson({
-  sourceFile: path.join(
-    __dirname,
-    '..',
-    'src',
-    'tests',
-    'testCases.xlsx'
-  ),
+  sourceFile: path.join(__dirname, '..', 'src', 'tests', 'testCases.xlsx'),
   header: {
     rows: 1,
   },
@@ -33,6 +27,8 @@ const result = excelToJson({
     I: 'balanceOutstanding',
   },
 });
+
+
 
 fs.writeFileSync(
   testCasesJSONPath,

@@ -11,31 +11,29 @@ import testCases from './testCases.json';
 testCases.forEach((testCase, index) => {
   test(`${testCase.name}-${index}`, (t) => {
     const expected: ITransactionInfo = {
-      account: { type: testCase.accountType as IAccountType },
+      account: {
+        type: testCase.accountType as IAccountType,
+        number: testCase.accountNumber
+          ? testCase.accountNumber.toString()
+          : null,
+        name: null,
+      },
       transactionAmount: testCase.transactionAmount
         ? padCurrencyValue(`${testCase.transactionAmount}`)
-        : '',
-      transactionType: testCase.transactionType as 'debit' | 'credit' | '',
-    };
-
-    expected.balance = {
-      available: testCase.balanceAvailable
-        ? padCurrencyValue(`${testCase.balanceAvailable}`)
-        : '',
+        : null,
+      transactionType: testCase.transactionType as 'debit' | 'credit' | null,
+      balance: {
+        available: testCase.balanceAvailable
+          ? padCurrencyValue(`${testCase.balanceAvailable}`)
+          : null,
+        outstanding: null,
+      },
     };
 
     // @ts-ignore
-    if (testCase.balanceoutstanding) {
-      expected.balance.outstanding = padCurrencyValue(
-        // @ts-ignore
-        `${testCase.balanceOutstanding}`
-      );
-    }
-
-    // @ts-ignore
-    if (testCase.accountNumber) {
+    if (testCase.balanceOutstanding) {
       // @ts-ignore
-      expected.account.number = `${testCase.accountNumber}`;
+      expected.balance.outstanding = testCase.balanceOutstanding;
     }
 
     // @ts-ignore

@@ -8,4 +8,5 @@ coverage
 *.log
 yarn.lock
 testCases.xlsx
+testCases.json
 .DS_Store
