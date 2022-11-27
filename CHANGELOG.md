@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.2.3...v2.1.0) (2022-11-27)
+
+
+### Features
+
+* interface changes ([b41b7ab](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/b41b7ab7858bb6ff96201eb053f58ab7e59328cb))
+* lint github action ([6d128d0](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/6d128d04fe269c77cfeaebe05d43091f21021d42))
+* unit test framework ([42059e0](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/42059e03a54d0d5f541b43aa39353f877068803f))
+
+
+### Bug Fixes
+
+* fixed unit tests ([d7aa849](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/d7aa8498bab7ef343b3ac5f499f1aefa4d88c4dd))
+* fixed unit tests ([4ee8630](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/4ee86301aa020ab68fadd87dc1a030408013459b))
+* test case ([f324835](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/f32483573acb3144c899eed08a89d2edfe26083c))
+* unit test case ([06518bd](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/06518bd544a3438978f3c775bf08806e95174cc6))
+* update codeql version ([181fdab](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/181fdabbf6fc1fc319827222af781fe555c67012))
+
 ### [1.2.3](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.2.2...v1.2.3) (2022-07-10)
 
 ### [1.2.2](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.2.0...v1.2.2) (2022-07-10)
