@@ -6,11 +6,10 @@ import { getTransactionInfo } from '../lib/engine';
 import { IAccountType, ITransactionInfo } from '../lib/interface';
 import { padCurrencyValue } from '../lib/utils';
 
-// eslint-disable-next-line import/no-unresolved
 import testCases from './testCases.json';
 
 testCases.forEach((testCase, index) => {
-  test(`${testCase.name}-${index}`, (t) => {
+  test(`${index} ${testCase.name}`, (t) => {
     const expected: ITransactionInfo = {
       account: {
         type: testCase.accountType as IAccountType,
@@ -20,12 +19,12 @@ testCases.forEach((testCase, index) => {
         name: null,
       },
       transactionAmount: testCase.transactionAmount
-        ? padCurrencyValue(`${testCase.transactionAmount}`)
+        ? padCurrencyValue(testCase.transactionAmount.toString())
         : null,
       transactionType: testCase.transactionType as 'debit' | 'credit' | null,
       balance: {
         available: testCase.balanceAvailable
-          ? padCurrencyValue(`${testCase.balanceAvailable}`)
+          ? padCurrencyValue(testCase.balanceAvailable.toString())
           : null,
         outstanding: null,
       },
@@ -33,8 +32,10 @@ testCases.forEach((testCase, index) => {
 
     // @ts-ignore
     if (testCase.balanceOutstanding) {
-      // @ts-ignore
-      expected.balance.outstanding = testCase.balanceOutstanding;
+      expected.balance.outstanding = padCurrencyValue(
+        // @ts-ignore
+        testCase.balanceOutstanding
+      );
     }
 
     // @ts-ignore

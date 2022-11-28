@@ -57,7 +57,7 @@ const findNonStandardBalance = (
     const balance = matches[0].split(' ').pop(); // return only first match
     return Number.isNaN(Number(balance)) ? '' : balance;
   }
-  return '';
+  return null;
 };
 
 const getBalance = (
@@ -112,12 +112,12 @@ const getBalance = (
   if (indexOfRs === -1) {
     // check for non standard balance
     balance = findNonStandardBalance(messageString);
-    return balance ? padCurrencyValue(balance) : '';
+    return balance ? padCurrencyValue(balance) : null;
   }
 
   balance = extractBalance(indexOfRs, messageString, messageString.length);
 
-  return padCurrencyValue(balance);
+  return balance ? padCurrencyValue(balance) : null;
 };
 
 export default getBalance;

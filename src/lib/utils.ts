@@ -30,6 +30,8 @@ export const processMessage = (message: string): string[] => {
   messageStr = messageStr.replace(/[{}]/g, ' ');
   // remove \n
   messageStr = messageStr.replace(/\n/g, ' ');
+  // remove \r
+  messageStr = messageStr.replace(/\r/g, ' ');
   // remove 'ending'
   messageStr = messageStr.replace(/ending /g, '');
   // replace 'x'
