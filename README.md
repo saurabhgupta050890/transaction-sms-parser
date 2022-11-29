@@ -15,15 +15,20 @@ It takes sms text as input and will give an object of `ITransactionInfo` type
 ```ts
 interface ITransactionInfo {
   account: IAccountInfo;
-  transactionAmount: string;
-  balance?: string;
-  transactionType: 'debit' | 'credit' | '';
+  transactionAmount: string | null;
+  transactionType: 'debit' | 'credit' | null;
+  balance: IBalance | null;
+}
+
+interface IBalance {
+  available: string | null;
+  outstanding: string | null;
 }
 
 interface IAccountInfo {
   type: IAccountType | null;
-  number?: string;
-  name?: string;
+  number: string | null;
+  name: string | null;
 }
 
 enum IAccountType {
@@ -50,10 +55,11 @@ const transactionInfo = getTransactionInfo(sms);
     account: {
         type: 'ACCOUNT',
         number: '3423',
+        name: null,
     },
     transactionAmount: '2000.00',
     transactionType: 'debit',
-    balance: { available: '2343.23' },
+    balance: { available: '2343.23', outstanding: null },
 }
 ```
 
