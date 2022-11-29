@@ -50,13 +50,24 @@ const findNonStandardBalance = (
       ? availableBalanceKeywords
       : outstandingBalanceKeywords;
 
-  const balRegex = `(${balanceKeywords.join('|')})`.replace('/', '\\/');
-  const regex = new RegExp(`${balRegex}\\s*[\\d]+\\.*[\\d]*`, 'gi');
-  const matches = message.match(regex);
+  const balKeywordRegex = `(${balanceKeywords.join('|')})`.replace('/', '\\/');
+
+  // balance 100.00
+  let regex = new RegExp(`${balKeywordRegex}\\s*[\\d]+\\.*[\\d]*`, 'gi');
+  let matches = message.match(regex);
   if (matches && matches.length > 0) {
     const balance = matches[0].split(' ').pop(); // return only first match
     return Number.isNaN(Number(balance)) ? '' : balance;
   }
+
+  // 100.00 available
+  regex = new RegExp(`[\\d]+\\.*[\\d]*\\s*${balKeywordRegex}`, 'gi');
+  matches = message.match(regex);
+  if (matches && matches.length > 0) {
+    const balance = matches[0].split(' ')[0]; // return only first match
+    return Number.isNaN(Number(balance)) ? '' : balance;
+  }
+
   return null;
 };
 

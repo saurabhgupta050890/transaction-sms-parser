@@ -15,6 +15,7 @@ export const availableBalanceKeywords = [
   'new balance',
   'bal',
   'avl lmt',
+  'available',
 ];
 
 export const outstandingBalanceKeywords = ['outstanding'];
