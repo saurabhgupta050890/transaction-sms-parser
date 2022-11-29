@@ -23,7 +23,7 @@
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint src --ext .ts --fix",
-    "test": "run-s clean:build build test:*",
+    "test": "run-s clean:build build test:pre test:unit",
     "test:pre": "run-s test:lint test:prettier test:spelling",
     "test:lint": "eslint src --ext .ts",
     "test:prettier": "prettier \"src/**/*.ts\" --list-different",
