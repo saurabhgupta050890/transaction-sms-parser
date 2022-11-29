@@ -9,7 +9,7 @@ import { padCurrencyValue } from '../lib/utils';
 import testCases from './testCases.json';
 
 testCases.forEach((testCase, index) => {
-  test(`${index} ${testCase.name}`, (t) => {
+  test(`${index + 2}: ${testCase.name}`, (t) => {
     const expected: ITransactionInfo = {
       account: {
         type: testCase.accountType as IAccountType,
