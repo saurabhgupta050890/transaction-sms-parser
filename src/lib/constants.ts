@@ -4,6 +4,7 @@ export const availableBalanceKeywords = [
   'avbl bal',
   'available balance',
   'available limit',
+  'available credit limit',
   'limit available',
   'a/c bal',
   'ac bal',
