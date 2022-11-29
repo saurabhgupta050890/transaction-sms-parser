@@ -1,6 +1,6 @@
 {
   "name": "transaction-sms-parser",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A library to parse transaction sms text",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -45,7 +45,8 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
-    "prepare-release": "run-s test doc:html doc:publish clean:spec version"
+    "prepare-release": "run-s test doc:html doc:publish clean:spec version",
+    "prepare-release:skip-test": "run-s build doc:html doc:publish clean:spec version"
   },
   "engines": {
     "node": ">=10"

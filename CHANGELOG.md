@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.1.0...v2.2.0) (2022-11-29)
+
+
+### Features
+
+* credit card limit fix ([5c8ac35](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/5c8ac3582d0373c24b8330865a996c90913635b0))
+
+
+### Bug Fixes
+
+*  handle null balance cases ([a64657c](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/a64657c85ac4c0a261fa2aff3e28482b6ef29420))
+* account number fix ([baf5f05](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/baf5f054cd882540d45b61e92b145d96d4d018b6))
+* fixed testData prepare script ([961dabf](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/961dabfa5d291a037084b9eec0e3be03c4a12bf4))
+* reverse balance regex ([8557140](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/85571401ea83e32ce0992940ce0e65945c9debdb))
+* test case fixes ([531ed99](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/531ed993a443ab835743395d4fd9806401caa499))
+* test lint fix ([2f05cab](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/2f05cabd6b675fcfd744ec537c1697bf1465d922))
+* test script fix ([a99ecd6](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/a99ecd6a2d10666148e7c11935027e8fedc6a28c))
+
 ## [2.1.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v1.2.3...v2.1.0) (2022-11-27)
 
 
