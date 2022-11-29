@@ -117,6 +117,12 @@ const getAccount = (message: TMessageType): IAccountInfo => {
     account.name = specialAccount?.word;
   }
 
+  // Extract last 4 digits of account number
+  // E.g. 4334XXXXX4334
+  if (account.number && account.number.length > 4) {
+    account.number = account.number.slice(-4);
+  }
+
   return account;
 };
 
