@@ -48,4 +48,9 @@ export const combinedWords: ICombinedWords[] = [
     word: 'slice_card',
     type: IAccountType.CARD,
   },
+  {
+    regex: /one\s*card/g,
+    word: 'one_card',
+    type: IAccountType.CARD,
+  },
 ];

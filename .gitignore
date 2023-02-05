@@ -12,3 +12,4 @@ testCases.xlsx
 testCases.json
 .DS_Store
 message.js
+data/*
