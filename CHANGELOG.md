@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.2.0...v2.3.0) (2023-02-05)
+
+
+### Features
+
+* added one card ([2824ffe](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/2824ffe6d074083f3978229e6e2b9fa779503559))
+
 ## [2.2.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.1.0...v2.2.0) (2022-11-29)
 
 
