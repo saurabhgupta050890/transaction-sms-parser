@@ -60,8 +60,6 @@ export const getTransactionRefNo = (message: TMessageType): string => {
     refNo = message[index + 2];
     // money = money?.replace(/,/g, '');
 
-    // If this is also false positive, return ""
-    // Else return the found money
     if (Number.isNaN(Number(refNo))) {
       return '';
     }
