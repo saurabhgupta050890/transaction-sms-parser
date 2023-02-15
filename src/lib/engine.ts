@@ -40,6 +40,38 @@ export const getTransactionAmount = (message: TMessageType): string => {
   return padCurrencyValue(money);
 };
 
+export const getTransactionRefNo = (message: TMessageType): string => {
+  const processedMessage = getProcessedMessage(message);
+  const index = processedMessage.indexOf('ref no');
+
+  // If "ref no" does not exist
+  // Return ""
+  if (index === -1) {
+    return '';
+  }
+  let refNo = message[index + 1];
+
+  // money = money.replace(/,/g, '');
+
+  // If data is false positive
+  // Look ahead one index and check for valid money
+  // Else return the found money
+  if (Number.isNaN(Number(refNo))) {
+    refNo = message[index + 2];
+    // money = money?.replace(/,/g, '');
+
+    // If this is also false positive, return ""
+    // Else return the found money
+    if (Number.isNaN(Number(refNo))) {
+      return '';
+    }
+    // return padCurrencyValue(money);
+    return refNo;
+  }
+  // return padCurrencyValue(money);
+  return refNo;
+};
+
 export const getTransactionType = (message: TMessageType): TTransactionType => {
   const creditPattern =
     /(?:credited|credit|deposited|added|received|refund|repayment)/gi;

@@ -43,7 +43,11 @@ export const processMessage = (message: string): string[] => {
   // replace 'with'
   messageStr = messageStr.replace(/with /g, '');
   // remove 'no.'
-  messageStr = messageStr.replace(/no. /g, '');
+  // messageStr = messageStr.replace(/no. /g, '');
+  // replace 'ref no.', 'inft', utr with 'ref no'
+  messageStr = messageStr.replace(/\bref no.\b|\binft\b|\butr\b/g, 'ref no');
+  // replace '*' with ' '
+  messageStr = messageStr.replace(/\* /g, ' ');
   // replace all ac, acct, account with ac
   messageStr = messageStr.replace(/\bac\b|\bacct\b|\baccount\b/g, 'ac');
   // replace all 'rs' with 'rs. '
