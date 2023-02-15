@@ -28,6 +28,7 @@ export interface ITransactionInfo {
   transactionAmount: string | null;
   transactionType: TTransactionType;
   balance: IBalance | null;
+  transactionRefNo: string | null;
 }
 
 export interface ICombinedWords {

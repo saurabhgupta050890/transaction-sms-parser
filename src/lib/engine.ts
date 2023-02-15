@@ -105,6 +105,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
       transactionAmount: null,
       balance: null,
       transactionType: null,
+      transactionRefNo: null,
     };
   }
 
@@ -129,13 +130,16 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     );
   }
 
+  const transactionRefNo = getTransactionRefNo(processedMessage);
+
   // console.log(processedMessage);
-  // console.log(account, balance, transactionAmount, transactionType);
+  // console.log(account, balance, transactionAmount, transactionType, transactionRefNo);
   // console.log('-----------------------------------------------------');
   return {
     account,
     balance,
     transactionAmount,
     transactionType,
+    transactionRefNo,
   };
 };
