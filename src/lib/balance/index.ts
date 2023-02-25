@@ -51,9 +51,10 @@ const findNonStandardBalance = (
       : outstandingBalanceKeywords;
 
   const balKeywordRegex = `(${balanceKeywords.join('|')})`.replace('/', '\\/');
+  const amountRegex = '([\\d]+\\.[\\d]+|[\\d]+)';
 
   // balance 100.00
-  let regex = new RegExp(`${balKeywordRegex}\\s*[\\d]+\\.*[\\d]*`, 'gi');
+  let regex = new RegExp(`${balKeywordRegex}\\s*${amountRegex}`, 'gi');
   let matches = message.match(regex);
   if (matches && matches.length > 0) {
     const balance = matches[0].split(' ').pop(); // return only first match
@@ -61,7 +62,7 @@ const findNonStandardBalance = (
   }
 
   // 100.00 available
-  regex = new RegExp(`[\\d]+\\.*[\\d]*\\s*${balKeywordRegex}`, 'gi');
+  regex = new RegExp(`${amountRegex}\\s*${balKeywordRegex}`, 'gi');
   matches = message.match(regex);
   if (matches && matches.length > 0) {
     const balance = matches[0].split(' ')[0]; // return only first match
