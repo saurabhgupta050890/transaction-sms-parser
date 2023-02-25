@@ -46,7 +46,7 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s test doc:html doc:publish clean:spec version",
-    "prepare-release:skip-test": "run-s build doc:html doc:publish clean:spec version"
+    "prepare-release:skip-test": "run-s clean:build build doc:html doc:publish clean:spec version"
   },
   "engines": {
     "node": ">=10"
@@ -62,6 +62,7 @@
     "codecov": "^3.8.3",
     "convert-excel-to-json": "^1.7.0",
     "cspell": "^6.15.0",
+    "csvtojson": "^2.0.10",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb-typescript-prettier": "^5.0.0",
