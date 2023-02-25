@@ -6,7 +6,7 @@ import { getTransactionInfo } from '../lib/engine';
 import { IAccountType, ITransactionInfo } from '../lib/interface';
 import { padCurrencyValue } from '../lib/utils';
 
-// @ts-ignore
+// eslint-disable-next-line import/no-unresolved
 import testCases from './testCases.json';
 
 testCases.forEach((testCase, index) => {
