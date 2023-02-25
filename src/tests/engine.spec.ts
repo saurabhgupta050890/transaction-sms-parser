@@ -6,6 +6,7 @@ import { getTransactionInfo } from '../lib/engine';
 import { IAccountType, ITransactionInfo } from '../lib/interface';
 import { padCurrencyValue } from '../lib/utils';
 
+// @ts-ignore
 import testCases from './testCases.json';
 
 testCases.forEach((testCase, index) => {
