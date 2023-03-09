@@ -120,5 +120,8 @@
     "exclude": [
       "**/*.spec.js"
     ]
+  },
+  "dependencies": {
+    "write-excel-file": "^1.4.24"
   }
 }

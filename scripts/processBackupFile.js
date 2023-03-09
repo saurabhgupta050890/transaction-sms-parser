@@ -1,10 +1,10 @@
 const csv = require('csvtojson');
 const path = require('path');
-const fs = require('fs');
+const writeXlsxFile = require('write-excel-file/node');
 const smsParser = require('../build/main');
 
 const smsBackupFile = path.join(__dirname, '..', 'data', 'sms_backup.csv');
-const output = path.join(__dirname, '..', 'data', 'filtered.txt');
+const output = path.join(__dirname, '..', 'data', 'filtered.xlsx');
 
 const isTransaction = (transactionObj) => {
   const {
@@ -20,23 +20,64 @@ const isTransaction = (transactionObj) => {
   }
 };
 
+const headers = [
+  {
+    name: 'name',
+  },
+  {
+    name: 'message',
+  },
+  {
+    name: 'accountType',
+  },
+  {
+    name: 'accountName',
+  },
+  {
+    name: 'accountNo',
+  },
+  {
+    name: 'transactionAmount',
+  },
+  {
+    name: 'transactionType',
+  },
+  {
+    name: 'balanceAvailable',
+  },
+  {
+    name: 'balanceOutstanding',
+  },
+];
+
 csv()
   .fromFile(smsBackupFile)
   .then((jsonObj) => {
-    const filteredSms = jsonObj.filter((smsObj) => {
-      const isPersonalMessage = /\d+/.test(smsObj.phoneNumber);
-      const containsOtp = /otp/gi.test(smsObj.message.toLowerCase());
-      const transactionObj = smsParser.getTransactionInfo(smsObj.message);
-      // console.log(transactionObj);
+    const filteredData = [];
 
-      return (
-        !isPersonalMessage && !containsOtp && isTransaction(transactionObj)
-      );
+    jsonObj.forEach((obj) => {
+      const isPersonalMessage = /\d+/.test(obj.phoneNumber);
+      const containsOtp = /otp/gi.test(obj.message.toLowerCase());
+      const transactionObj = smsParser.getTransactionInfo(obj.message);
+
+      filteredData.push(headers);
+
+      if (!isPersonalMessage && !containsOtp && isTransaction(transactionObj)) {
+        filteredData.push([
+          { value: '' },
+          { value: obj.message },
+          { value: transactionObj.account.type },
+          { value: transactionObj.account.name },
+          { value: transactionObj.account.number },
+          { value: transactionObj.transactionAmount },
+          { value: transactionObj.transactionType },
+          { value: transactionObj.balance.available },
+          { value: transactionObj.balance.outstanding },
+        ]);
+      }
     });
 
-    fs.writeFileSync(
-      output,
-      filteredSms.map((obj) => obj.message).join('\n'),
-      'utf-8'
-    );
+    writeXlsxFile(filteredData, {
+      filePath: output,
+    });
   });
