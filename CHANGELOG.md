@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.3.2...v2.3.3) (2023-03-12)
+
+
+### Bug Fixes
+
+* updated sms backup processing utility ([49b6e36](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/49b6e363a52f68a6e303e6df74e2f655ecf58262))
+
 ### [2.3.2](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.3.1...v2.3.2) (2023-02-25)
 
 
