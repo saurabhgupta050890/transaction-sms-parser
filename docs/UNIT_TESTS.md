@@ -5,7 +5,7 @@ Data driven unit testing setup is created for this project. I have choosen excel
 Steps to run unit tests:
 
 1. Rename file `src/tests/testCases.example.xlsx` to `testCases.xlsx`.
-2. Paste you test data in the excel sheet in the exact format. (DO NOT MODIDFY EXCEL STRUCTURE)
+2. Paste your test data in the excel sheet in the exact format. (DO NOT MODIDFY EXCEL STRUCTURE)
 3. Run script `node scripts/prepareTestData.js`
 4. A json file will be generated at `src/tests/testCases.json`
 5. Run command  `npm run test`
@@ -26,4 +26,10 @@ Test case excel has following columns:
 
 ## Test Data prepareration
 
-On Android you can use [SMS, Call - XML, PDF, CSV(Super Backup & Restore)](https://play.google.com/store/apps/details?id=com.greenchills.superbackup) to export inbox as csv
+1. On Android you can use [SMS, Call - XML, PDF, CSV(Super Backup & Restore)](https://play.google.com/store/apps/details?id=com.greenchills.superbackup) to export inbox as csv
+2. Put the .csv files in `data/csv`
+3. Run script `node scripts/prepareTestData.js`
+4. 2 excel files will be genrated `filtered.xlsx` and `ignored.xlsx`
+5. Append contents of `filtered.xlsx` to `testCases.xlsx`
+
+Note: `ignored.xlsx` might also contain tranaction messages which were not able to parse. 

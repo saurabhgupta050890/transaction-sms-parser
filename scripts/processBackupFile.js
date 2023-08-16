@@ -1,10 +1,14 @@
 const csv = require('csvtojson');
 const path = require('path');
+const fs = require('fs/promises');
 const writeXlsxFile = require('write-excel-file/node');
 const smsParser = require('../build/main');
 
-const smsBackupFile = path.join(__dirname, '..', 'data', 'sms_backup.csv');
+const smsBackupsPath = path.join(__dirname, '..', 'data', 'csv');
+
+// const smsBackupFile = path.join(__dirname, '..', 'data', 'sms_backup.csv');
 const output = path.join(__dirname, '..', 'data', 'filtered.xlsx');
+const ignored = path.join(__dirname, '..', 'data', 'ignored.xlsx');
 
 const isTransaction = (transactionObj) => {
   const {
@@ -22,62 +26,86 @@ const isTransaction = (transactionObj) => {
 
 const headers = [
   {
-    name: 'name',
+    value: 'name',
   },
   {
-    name: 'message',
+    value: 'message',
   },
   {
-    name: 'accountType',
+    value: 'accountType',
   },
   {
-    name: 'accountName',
+    value: 'accountName',
   },
   {
-    name: 'accountNo',
+    value: 'accountNo',
   },
   {
-    name: 'transactionAmount',
+    value: 'transactionAmount',
   },
   {
-    name: 'transactionType',
+    value: 'transactionType',
   },
   {
-    name: 'balanceAvailable',
+    value: 'balanceAvailable',
   },
   {
-    name: 'balanceOutstanding',
+    value: 'balanceOutstanding',
   },
 ];
 
-csv()
-  .fromFile(smsBackupFile)
-  .then((jsonObj) => {
-    const filteredData = [];
+async function processSMS(dirPath) {
+  const files = await fs.readdir(dirPath);
+  const csvObjs = [];
 
-    jsonObj.forEach((obj) => {
-      const isPersonalMessage = /\d+/.test(obj.phoneNumber);
-      const containsOtp = /otp/gi.test(obj.message.toLowerCase());
-      const transactionObj = smsParser.getTransactionInfo(obj.message);
+  for (const file of files) {
+    if (file.endsWith('.csv')) {
+      const jsonArr = await csv().fromFile(path.join(smsBackupsPath, file));
+      csvObjs.push(...jsonArr);
+    }
+  }
 
-      filteredData.push(headers);
+  const filteredData = [];
+  filteredData.push(headers);
+  const ignoredData = [];
 
-      if (!isPersonalMessage && !containsOtp && isTransaction(transactionObj)) {
-        filteredData.push([
-          { value: '' },
-          { value: obj.message },
-          { value: transactionObj.account.type },
-          { value: transactionObj.account.name },
-          { value: transactionObj.account.number },
-          { value: transactionObj.transactionAmount },
-          { value: transactionObj.transactionType },
-          { value: transactionObj.balance.available },
-          { value: transactionObj.balance.outstanding },
-        ]);
-      }
-    });
+  // console.log(csvObjs);
 
-    writeXlsxFile(filteredData, {
-      filePath: output,
-    });
+  csvObjs.forEach((obj, index) => {
+    const isPersonalMessage = /\d+/.test(obj.phoneNumber);
+    const containsOtp = /otp/gi.test(obj.message?.toLowerCase());
+    const transactionObj = smsParser.getTransactionInfo(obj.message);
+
+    if (index === 0) {
+      ignoredData.push(Object.keys(obj).map((key) => ({ value: key })));
+    }
+
+    if (!isPersonalMessage && !containsOtp && isTransaction(transactionObj)) {
+      filteredData.push([
+        { value: '' },
+        { value: obj.message },
+        { value: transactionObj.account.type },
+        { value: transactionObj.account.name },
+        { value: transactionObj.account.number },
+        { value: transactionObj.transactionAmount },
+        { value: transactionObj.transactionType },
+        { value: transactionObj.balance.available },
+        { value: transactionObj.balance.outstanding },
+      ]);
+    } else {
+      ignoredData.push(Object.values(obj).map((val) => ({ value: val })));
+    }
   });
+
+  // console.log(filteredData);
+
+  writeXlsxFile(filteredData, {
+    filePath: output,
+  });
+
+  writeXlsxFile(ignoredData, {
+    filePath: ignored,
+  });
+}
+
+processSMS(smsBackupsPath);

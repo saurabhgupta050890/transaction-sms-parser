@@ -5,7 +5,7 @@ export const trimLeadingAndTrailingChars = (str: string): string => {
   const [first, last] = [str[0], str[str.length - 1]];
 
   let finalStr = Number.isNaN(Number(last)) ? str.slice(0, -1) : str;
-  finalStr = Number.isNaN(Number(first)) ? str.slice(1) : finalStr;
+  finalStr = Number.isNaN(Number(first)) ? finalStr.slice(1) : finalStr;
 
   return finalStr;
 };
