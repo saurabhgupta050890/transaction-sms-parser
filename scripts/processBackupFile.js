@@ -72,8 +72,12 @@ async function processSMS(dirPath) {
   // console.log(csvObjs);
 
   csvObjs.forEach((obj, index) => {
-    const isPersonalMessage = /\d+/.test(obj.phoneNumber);
-    const containsOtp = /otp/gi.test(obj.message?.toLowerCase());
+    const isPersonalMessage = /^\d{10}$/.test(obj.phoneNumber);
+    // otp is, otp for, your otp, otp to, this otp, is `word` otp, use otp, (otp), otp:, code is, One-Time Password
+    const containsOtp =
+      /otp\sis|otp\sfor|your\sotp|otp\sto|this\sotp|is\s(?:\w+\s)?otp|use\sotp|\(otp\)|otp\:|code\sis|One\-Time Password/gi.test(
+        obj.message?.toLowerCase()
+      );
     const transactionObj = smsParser.getTransactionInfo(obj.message);
 
     if (index === 0) {
