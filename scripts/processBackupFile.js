@@ -10,6 +10,11 @@ const smsBackupsPath = path.join(__dirname, '..', 'data', 'csv');
 const output = path.join(__dirname, '..', 'data', 'filtered.xlsx');
 const ignored = path.join(__dirname, '..', 'data', 'ignored.xlsx');
 
+const isPositive = (num) => {
+  if (Number.isNaN(Number(num))) return false;
+  return Number(num) > 0;
+};
+
 const isTransaction = (transactionObj) => {
   const {
     account: { type, name, number },
@@ -17,11 +22,12 @@ const isTransaction = (transactionObj) => {
     transactionType,
   } = transactionObj;
 
-  if (type || name || number || transactionAmount || transactionType) {
-    return true;
-  } else {
-    return false;
-  }
+  if (!isPositive(transactionAmount)) return false;
+  if (!transactionType) return false;
+
+  if (!!name || isPositive(number) || !!type) return true;
+
+  return false;
 };
 
 const headers = [
