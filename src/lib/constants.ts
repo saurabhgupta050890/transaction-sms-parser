@@ -20,8 +20,28 @@ export const availableBalanceKeywords = [
 
 export const outstandingBalanceKeywords = ['outstanding'];
 
-export const wallets = ['paytm', 'simpl', 'lazypay', 'amazon_pay'];
-
+const wallets: ICombinedWords[] = [
+  {
+    regex: /paytm(?:\.|$)/g,
+    word: 'paytm',
+    type: IAccountType.WALLET,
+  },
+  {
+    regex: /simpl(?:\.|$)/g,
+    word: 'simpl',
+    type: IAccountType.WALLET,
+  },
+  {
+    regex: /lazypay(?:\.|$)/g,
+    word: 'lazypay',
+    type: IAccountType.WALLET,
+  },
+  {
+    regex: /amazon\spay/g,
+    word: 'amazon_pay',
+    type: IAccountType.WALLET,
+  },
+];
 export const combinedWords: ICombinedWords[][] = [
   [
     {
@@ -68,13 +88,6 @@ export const combinedWords: ICombinedWords[][] = [
   ],
   [
     {
-      regex: /amazon\spay/g,
-      word: 'amazon_pay',
-      type: IAccountType.WALLET,
-    },
-  ],
-  [
-    {
       regex: /uni\scard/g,
       word: 'uni_card',
       type: IAccountType.CARD,
@@ -101,4 +114,7 @@ export const combinedWords: ICombinedWords[][] = [
       type: IAccountType.CARD,
     },
   ],
+
+  // wallets 'paytm', 'simpl', 'lazypay', 'amazon_pay'
+  wallets,
 ];

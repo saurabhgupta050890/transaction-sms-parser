@@ -28,8 +28,6 @@ const result = excelToJson({
   },
 });
 
-
-
 fs.writeFileSync(
   testCasesJSONPath,
   JSON.stringify(result.Sheet1, null, 4),

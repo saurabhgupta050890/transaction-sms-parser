@@ -1,5 +1,5 @@
-import { combinedWords, wallets } from '../constants';
-import { IAccountInfo, IAccountType, TMessageType } from '../interface';
+import { combinedWords } from '../constants';
+import { IAccountInfo, TMessageType } from '../interface';
 import { getProcessedMessage } from '../utils';
 
 import getAccount from './getAccount';
@@ -12,17 +12,6 @@ const getAccountDetails = (message: TMessageType): IAccountInfo => {
   // No occurence of the word "ac". Check for "card"
   if (!account.type) {
     account = getCard(processedMessage);
-  }
-
-  // Check for wallets
-  if (!account.type) {
-    const wallet = processedMessage.find((word) => {
-      return wallets.includes(word);
-    });
-    if (wallet) {
-      account.type = IAccountType.WALLET;
-      account.name = wallet;
-    }
   }
 
   // Check for special accounts
