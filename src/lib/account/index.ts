@@ -1,97 +1,16 @@
 import { combinedWords, wallets } from '../constants';
 import { IAccountInfo, IAccountType, TMessageType } from '../interface';
-import {
-  extractBondedAccountNo,
-  getProcessedMessage,
-  trimLeadingAndTrailingChars,
-} from '../utils';
+import { getProcessedMessage } from '../utils';
 
-const getCard = (message: string[]): IAccountInfo => {
-  let combinedCardName = '';
-  const cardIndex = message.findIndex(
-    (word) =>
-      word === 'card' ||
-      combinedWords // Any combined word of card type
-        .filter((w) => w.type === IAccountType.CARD)
-        .some((w) => {
-          if (w.word === word) {
-            combinedCardName = w.word;
-            return true;
-          }
-          return false;
-        })
-  );
-  const card: IAccountInfo = { type: null, name: null, number: null };
+import getAccount from './getAccount';
+import getCard from './getCard';
 
-  // Search for "card" and if not found return empty obj
-  if (cardIndex !== -1) {
-    card.number = message[cardIndex + 1];
-    card.type = IAccountType.CARD;
-
-    // If the data is false positive
-    // return empty obj
-    // Else return the card info
-    if (Number.isNaN(Number(card.number))) {
-      return {
-        type: combinedCardName ? card.type : null,
-        name: combinedCardName,
-        number: null,
-      };
-    }
-    return card;
-  }
-  return { type: null, name: null, number: null };
-};
-
-const getAccount = (message: TMessageType): IAccountInfo => {
+const getAccountDetails = (message: TMessageType): IAccountInfo => {
   const processedMessage = getProcessedMessage(message);
-  let accountIndex = -1;
-  let account: IAccountInfo = {
-    type: null,
-    name: null,
-    number: null,
-  };
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const [index, word] of processedMessage.entries()) {
-    if (word === 'ac') {
-      if (index + 1 < processedMessage.length) {
-        const accountNo = trimLeadingAndTrailingChars(
-          processedMessage[index + 1]
-        );
-
-        if (Number.isNaN(Number(accountNo))) {
-          // continue searching for a valid account number
-          // eslint-disable-next-line no-continue
-          continue;
-        } else {
-          accountIndex = index;
-          account.type = IAccountType.ACCOUNT;
-          account.number = accountNo;
-          break;
-        }
-      } else {
-        // continue searching for a valid account number
-        // eslint-disable-next-line no-continue
-        continue;
-      }
-    } else if (word.includes('ac')) {
-      const extractedAccountNo = extractBondedAccountNo(word);
-
-      if (extractedAccountNo === '') {
-        // eslint-disable-next-line no-continue
-        continue;
-      } else {
-        accountIndex = index;
-        account.type = IAccountType.ACCOUNT;
-        account.number = extractedAccountNo;
-        break;
-      }
-    }
-  }
+  let account = getAccount(processedMessage);
 
   // No occurence of the word "ac". Check for "card"
-  if (accountIndex === -1) {
+  if (!account.type) {
     account = getCard(processedMessage);
   }
 
@@ -109,12 +28,11 @@ const getAccount = (message: TMessageType): IAccountInfo => {
   // Check for special accounts
   if (!account.type) {
     const specialAccount = combinedWords
-      .filter((word) => word.type === IAccountType.ACCOUNT)
-      .find((w) => {
-        return processedMessage.includes(w.word);
-      });
+      .flatMap((x) => x)
+      .find((w) => processedMessage.includes(w.word));
+
     account.type = specialAccount?.type;
-    account.name = specialAccount?.word;
+    account.name = specialAccount?.word ?? null;
   }
 
   // Extract last 4 digits of account number
@@ -126,4 +44,4 @@ const getAccount = (message: TMessageType): IAccountInfo => {
   return account;
 };
 
-export default getAccount;
+export default getAccountDetails;

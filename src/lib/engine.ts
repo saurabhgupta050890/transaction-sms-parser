@@ -1,12 +1,12 @@
-import getAccount from './account';
+import getAccountDetails from './account';
 import getBalance from './balance';
+import getTransactionType from './getTransactionType';
 import {
   IAccountType,
   IBalance,
   IBalanceKeyWordsType,
   ITransactionInfo,
   TMessageType,
-  TTransactionType,
 } from './interface';
 import { getProcessedMessage, padCurrencyValue, processMessage } from './utils';
 
@@ -40,28 +40,6 @@ export const getTransactionAmount = (message: TMessageType): string => {
   return padCurrencyValue(money);
 };
 
-export const getTransactionType = (message: TMessageType): TTransactionType => {
-  const creditPattern =
-    /(?:credited|credit|deposited|added|received|refund|repayment)/gi;
-  const debitPattern = /(?:debited|debit|deducted)/gi;
-  const miscPattern =
-    /(?:payment|spent|paid|used\s+at|charged|transaction\son|transaction\sfee|tran|booked|purchased|sent\s+to|purchase\s+of)/gi;
-
-  const messageStr = typeof message !== 'string' ? message.join(' ') : message;
-
-  if (debitPattern.test(messageStr)) {
-    return 'debit';
-  }
-  if (creditPattern.test(messageStr)) {
-    return 'credit';
-  }
-  if (miscPattern.test(messageStr)) {
-    return 'debit';
-  }
-
-  return null;
-};
-
 export const getTransactionInfo = (message: string): ITransactionInfo => {
   if (!message || typeof message !== 'string') {
     return {
@@ -77,7 +55,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
   }
 
   const processedMessage = processMessage(message);
-  const account = getAccount(processedMessage);
+  const account = getAccountDetails(processedMessage);
   const availableBalance = getBalance(
     processedMessage,
     IBalanceKeyWordsType.AVAILABLE
