@@ -26,6 +26,7 @@ const extractMerchantInfo = (message: TMessageType) => {
     const idx = messageString.indexOf(keyword);
     if (idx > 0) {
       match = keyword;
+      break;
     }
   }
 

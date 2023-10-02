@@ -22,7 +22,15 @@ export const outstandingBalanceKeywords = ['outstanding'];
 
 export const wallets = ['paytm', 'simpl', 'lazypay', 'amazon_pay'];
 
-export const upiKeywords = ['upi', 'ref no', 'upi ref', 'upi ref no'];
+export const upiKeywords = [
+  'upi ref no',
+  'upi ref',
+  'upi p2p',
+  'upi p2a',
+  'upi p2m',
+  'ref no',
+  'upi',
+];
 
 export const combinedWords: ICombinedWords[] = [
   {
