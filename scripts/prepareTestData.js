@@ -25,10 +25,12 @@ const result = excelToJson({
     G: 'transactionType',
     H: 'balanceAvailable',
     I: 'balanceOutstanding',
+    J: 'merchantName',
+    K: 'transactionId',
   },
 });
 
-
+console.log(result);
 
 fs.writeFileSync(
   testCasesJSONPath,

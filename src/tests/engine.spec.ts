@@ -13,9 +13,7 @@ testCases.forEach((testCase, index) => {
     const expected: ITransactionInfo = {
       account: {
         type: testCase.accountType as IAccountType,
-        number: testCase.accountNumber
-          ? testCase.accountNumber.toString()
-          : null,
+        number: testCase.accountNumber?.toString() ?? null,
         name: null,
       },
       transactionAmount: testCase.transactionAmount
@@ -28,6 +26,8 @@ testCases.forEach((testCase, index) => {
           : null,
         outstanding: null,
       },
+      transactionId: testCase.transactionId?.toString() ?? null,
+      merchantName: testCase.merchantName?.toLowerCase() ?? null,
     };
 
     // @ts-ignore

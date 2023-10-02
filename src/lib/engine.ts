@@ -8,6 +8,7 @@ import {
   TMessageType,
   TTransactionType,
 } from './interface';
+import extractMerchantInfo from './merchant';
 import { getProcessedMessage, padCurrencyValue, processMessage } from './utils';
 
 export const getTransactionAmount = (message: TMessageType): string => {
@@ -73,6 +74,8 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
       transactionAmount: null,
       balance: null,
       transactionType: null,
+      transactionId: null,
+      merchantName: null,
     };
   }
 
@@ -97,6 +100,8 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     );
   }
 
+  const { merchantName, transactionId } = extractMerchantInfo(message);
+
   // console.log(processedMessage);
   // console.log(account, balance, transactionAmount, transactionType);
   // console.log('-----------------------------------------------------');
@@ -105,5 +110,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     balance,
     transactionAmount,
     transactionType,
+    merchantName,
+    transactionId,
   };
 };

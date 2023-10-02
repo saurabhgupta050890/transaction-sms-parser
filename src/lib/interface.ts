@@ -28,6 +28,8 @@ export interface ITransactionInfo {
   transactionAmount: string | null;
   transactionType: TTransactionType;
   balance: IBalance | null;
+  transactionId: string | null;
+  merchantName: string | null;
 }
 
 export interface ICombinedWords {

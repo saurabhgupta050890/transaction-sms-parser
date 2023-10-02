@@ -1,6 +1,8 @@
 import { combinedWords } from './constants';
 import { TMessageType } from './interface';
 
+export const isNumber = (val) => !Number.isNaN(Number(val));
+
 export const trimLeadingAndTrailingChars = (str: string): string => {
   const [first, last] = [str[0], str[str.length - 1]];
 
@@ -20,6 +22,8 @@ export const processMessage = (message: string): string[] => {
   let messageStr = message.toLowerCase();
   // remove '-'
   messageStr = messageStr.replace(/-/g, '');
+  // remove '!'
+  messageStr = messageStr.replace(/!/g, '');
   // remove ':'
   messageStr = messageStr.replace(/:/g, ' ');
   // remove '/'
@@ -58,6 +62,10 @@ export const processMessage = (message: string): string[] => {
   messageStr = messageStr.replace(/rs. /g, 'rs.');
   // replace all 'rs.' with 'rs. '
   messageStr = messageStr.replace(/rs.(?=\w)/g, 'rs. ');
+  // replace all 'debited' with ' debited '
+  messageStr = messageStr.replace(/debited/g, ' debited ');
+  // replace all 'credited' with ' credited '
+  messageStr = messageStr.replace(/credited/g, ' credited ');
   // combine words
   combinedWords.forEach((word) => {
     messageStr = messageStr.replace(word.regex, word.word);
@@ -79,4 +87,19 @@ export const getProcessedMessage = (message: TMessageType) => {
 export const padCurrencyValue = (val: string): string => {
   const [lhs, rhs] = val.split('.');
   return `${lhs}.${(rhs ?? '').padEnd(2, '0')}`;
+};
+
+export const getNextWords = (
+  source: string,
+  searchWord: string,
+  count = 1
+): string => {
+  // const splitRegex = new RegExp(`[^0-9a-zA-Z]${searchWord}[^0-9a-zA-Z]+`, 'gi');
+  const splits = source.split(searchWord, 2);
+  const nextGroup = splits[1];
+  if (nextGroup) {
+    const wordSplitRegex = /[^0-9a-zA-Z]+/gi;
+    return nextGroup.trim().split(wordSplitRegex, count).join(' ');
+  }
+  return '';
 };

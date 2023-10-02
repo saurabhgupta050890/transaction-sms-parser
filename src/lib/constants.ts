@@ -22,6 +22,8 @@ export const outstandingBalanceKeywords = ['outstanding'];
 
 export const wallets = ['paytm', 'simpl', 'lazypay', 'amazon_pay'];
 
+export const upiKeywords = ['upi', 'ref no', 'upi ref', 'upi ref no'];
+
 export const combinedWords: ICombinedWords[] = [
   {
     regex: /credit\scard/g,
