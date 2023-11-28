@@ -2,18 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [3.1.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.3.3...v3.1.0) (2023-11-28)
-
-
-### Features
-
-* extract upi information ([9c8e4c3](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/9c8e4c35548c592c3a8193a7c7a4617bed631a1e))
-* modified data prepration scripts ([17a8be5](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/17a8be5144d3d33f5467489323530c1146465d35))
-
-
-### Bug Fixes
-
-* transaction reference handling ([ce759b0](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/ce759b08a5b5e73d866217f2a4cbeec473d93674))
+### [2.3.4](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.1.0...v2.3.4) (2023-11-28)
 
 ### [2.3.3](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.3.2...v2.3.3) (2023-03-12)
 
