@@ -86,7 +86,6 @@ const getBalance = (
       ? availableBalanceKeywords
       : outstandingBalanceKeywords;
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const word of balanceKeywords) {
     indexOfKeyword = messageString.indexOf(word);
 
@@ -94,7 +93,6 @@ const getBalance = (
       indexOfKeyword += word.length;
       break;
     } else {
-      // eslint-disable-next-line no-continue
       continue;
     }
   }

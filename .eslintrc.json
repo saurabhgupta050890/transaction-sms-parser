@@ -4,21 +4,22 @@
   "parserOptions": { "project": "./tsconfig.json" },
   "env": { "es6": true },
   "ignorePatterns": ["node_modules", "build", "coverage", "scripts", "test"],
-  "plugins": ["import", "eslint-comments"],
+  "plugins": ["import", "eslint-comments", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:eslint-comments/recommended",
-    "plugin:import/typescript",
-    "airbnb-typescript-prettier"
+    "plugin:import/typescript"
   ],
   "globals": { "BigInt": true, "console": true, "WebAssembly": true },
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
     "eslint-comments/disable-enable-pair": [
       "error",
       { "allowWholeFile": true }
     ],
-    "eslint-comments/no-unused-disable": "error",
     "import/order": [
       "error",
       { "newlines-between": "always", "alphabetize": { "order": "asc" } }

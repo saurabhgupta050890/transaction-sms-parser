@@ -52,7 +52,6 @@ const getAccount = (message: TMessageType): IAccountInfo => {
     number: null,
   };
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const [index, word] of processedMessage.entries()) {
     if (word === "ac") {
       if (index + 1 < processedMessage.length) {
@@ -62,7 +61,6 @@ const getAccount = (message: TMessageType): IAccountInfo => {
 
         if (Number.isNaN(Number(accountNo))) {
           // continue searching for a valid account number
-          // eslint-disable-next-line no-continue
           continue;
         } else {
           accountIndex = index;
@@ -72,14 +70,12 @@ const getAccount = (message: TMessageType): IAccountInfo => {
         }
       } else {
         // continue searching for a valid account number
-        // eslint-disable-next-line no-continue
         continue;
       }
     } else if (word.includes("ac")) {
       const extractedAccountNo = extractBondedAccountNo(word);
 
       if (extractedAccountNo === "") {
-        // eslint-disable-next-line no-continue
         continue;
       } else {
         accountIndex = index;
