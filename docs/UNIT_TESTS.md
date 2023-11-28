@@ -1,13 +1,21 @@
-# How to run Unit Tests
+# How to setup and run Unit Tests
 
 Data driven unit testing setup is created for this project. I have chosen excel for the data input as its easy to use and setup.
 
-Steps to run unit tests:
+## Project setup:
 
-1. Rename file `src/tests/testCases.example.xlsx` to `testCases.xlsx`.
+This project uses `vite` and `vitest` which requires `node` (currently >=18). Other supported runtime environments should also 
+work but haven't tested. Feel free to modify and run with other environments.
+
+1. Run `npm install` to install the dependencies. In case you use any other package management tool please remove `package-lock.json` unless its supported.
+2. Run `npm run build` to generate a compiled build inside `dist` folder
+
+## Steps to prepare and run unit tests:
+
+1. Rename file `tests/testCases.example.xlsx` to `testCases.xlsx`.
 2. Paste your test data in the excel sheet in the exact format. (DO NOT MODIFY EXCEL STRUCTURE)
 3. Run script `node scripts/prepareTestData.js`
-4. A json file will be generated at `src/tests/testCases.json`
+4. A json file will be generated at `tests/testCases.json`
 5. Run command  `npm run test`
 
 
@@ -23,6 +31,8 @@ Test case excel has following columns:
 7. transactionType: Transaction type
 8. balanceAvailable: Available balance (if present)
 9. balanceOutstanding: Outstanding balance (in case of credit cards)
+10. merchantName: Name of the merchant (in case of UPI if upi reference number is not present)
+11. transactionId: Transaction reference number (currently only for UPI)
 
 ## Test Data preparation
 
@@ -32,4 +42,4 @@ Test case excel has following columns:
 4. 2 excel files will be generated `filtered.xlsx` and `ignored.xlsx` inside `data`
 5. Append contents of `filtered.xlsx` to `testCases.xlsx`
 
-Note: `ignored.xlsx` might also contain transaction messages which were not able to parse. 
+Note: `ignored.xlsx` might also contain transaction messages which library was not able to parse. 
