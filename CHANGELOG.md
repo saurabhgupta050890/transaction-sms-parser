@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.3.5...v3.0.0) (2023-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* added reference no and merchant information
+
+### Features
+
+* added reference no and merchant information ([6a7fe11](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/6a7fe11fba78f6ad314679878a3044786868fd21))
+
 ### [2.3.5](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.3.4...v2.3.5) (2023-11-28)
 
 
