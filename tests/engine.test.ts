@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
 
-import testCases from "./testCases.json";
 import {
+  getTransactionInfo,
   IAccountType,
   ITransactionInfo,
-  getTransactionInfo,
 } from "../src/index";
 import { padCurrencyValue } from "../src/library/utils";
+
+import testCases from "./testCases.json";
 
 testCases.forEach((testCase, index) => {
   test(`${index + 2}: ${testCase.name}`, () => {
@@ -17,20 +18,21 @@ testCases.forEach((testCase, index) => {
         number: testCase.accountNumber?.toString() ?? null,
         name: null,
       },
-      transactionAmount: testCase.transactionAmount
-        ? padCurrencyValue(testCase.transactionAmount.toString())
-        : null,
-      transactionType: testCase.transactionType as "debit" | "credit" | null,
       balance: {
         available: testCase.balanceAvailable
           ? padCurrencyValue(testCase.balanceAvailable.toString())
           : null,
         outstanding: null,
       },
-      transactionDetails: {
-        transactionId: testCase.transactionId?.toString() ?? null,
-        merchantName: testCase.merchantName?.toLowerCase() ?? null,
-      },
+      transaction: {
+        type: testCase.transactionType as "debit" | "credit" | null,
+        amount: testCase.transactionAmount
+        ? padCurrencyValue(testCase.transactionAmount.toString())
+        : null,
+        referenceNo: testCase.transactionId?.toString() ?? null,
+        merchant: testCase.merchantName?.toLowerCase() ?? null,
+      }
+      
     };
 
     // @ts-ignore

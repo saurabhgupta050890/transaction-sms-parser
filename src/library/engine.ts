@@ -67,14 +67,17 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
   if (!message || typeof message !== "string") {
     return {
       account: {
-        type: IAccountType.ACCOUNT,
+        type: null,
         number: null,
         name: null,
       },
-      transactionAmount: null,
       balance: null,
-      transactionType: null,
-      transactionDetails: null,
+      transaction: {
+        type: null,
+        amount: null,
+        merchant: null,
+        referenceNo: null,
+      },
     };
   }
 
@@ -99,7 +102,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     );
   }
 
-  const transactionDetails = extractMerchantInfo(message);
+  const { merchant, referenceNo } = extractMerchantInfo(message);
 
   // console.log(processedMessage);
   // console.log(account, balance, transactionAmount, transactionType);
@@ -107,8 +110,11 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
   return {
     account,
     balance,
-    transactionAmount,
-    transactionType,
-    transactionDetails,
+    transaction: {
+      type: transactionType,
+      amount: transactionAmount,
+      merchant: merchant,
+      referenceNo: referenceNo,
+    },
   };
 };

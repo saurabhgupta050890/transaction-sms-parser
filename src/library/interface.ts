@@ -23,17 +23,17 @@ export interface IBalance {
 export type TMessageType = string | string[];
 export type TTransactionType = "debit" | "credit" | null;
 
-export interface ITransactionDetails {
-  transactionId: string | null;
-  merchantName: string | null;
+export interface ITransaction {
+  type: TTransactionType | null;
+  amount: string | null;
+  referenceNo: string | null;
+  merchant: string | null;
 }
 
 export interface ITransactionInfo {
   account: IAccountInfo;
-  transactionAmount: string | null;
-  transactionType: TTransactionType;
   balance: IBalance | null;
-  transactionDetails: ITransactionDetails | null;
+  transaction: ITransaction;
 }
 
 export interface ICombinedWords {

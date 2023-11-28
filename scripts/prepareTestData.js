@@ -1,19 +1,12 @@
 import fs from "node:fs";
-import path from "node:path";
 import excelToJson from "convert-excel-to-json";
 
 const root = new URL("..", import.meta.url);
 
-const testCasesJSONPath = path.join(
-  __dirname,
-  "..",
-  "src",
-  "tests",
-  "testCases.json",
-);
+const testCasesJSONPath = new URL('tests/testCases.json', root);
 
 const result = excelToJson({
-  sourceFile: path.join(__dirname, "..", "src", "tests", "testCases.xlsx"),
+  sourceFile: (new URL("tests/testCases.xlsx", root)).pathname,
   header: {
     rows: 1,
   },

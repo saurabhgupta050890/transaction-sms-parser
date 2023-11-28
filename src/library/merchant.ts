@@ -1,14 +1,17 @@
 // import { upiKeywords } from '../constants';
 import { upiKeywords } from "./constants";
-import { ITransactionDetails, TMessageType } from "./interface";
+import { TMessageType } from "./interface";
 import { getNextWords, getProcessedMessage, isNumber } from "./utils";
 
-const extractMerchantInfo = (message: TMessageType): ITransactionDetails => {
+const extractMerchantInfo = (message: TMessageType) => {
   const processedMessage = getProcessedMessage(message);
   const messageString = processedMessage.join(" ");
-  const transactionDetails: ITransactionDetails = {
-    merchantName: null,
-    transactionId: null,
+  const transactionDetails: {
+    merchant: string | null;
+    referenceNo: string | null;
+  } = {
+    merchant: null,
+    referenceNo: null,
   };
   if (processedMessage.includes("vpa")) {
     const idx = processedMessage.indexOf("vpa");
@@ -16,7 +19,7 @@ const extractMerchantInfo = (message: TMessageType): ITransactionDetails => {
     if (idx < processedMessage.length - 1) {
       const nextStr = processedMessage[idx + 1];
       const [name] = nextStr.replaceAll(/\(|\)/gi, " ").split(" ");
-      transactionDetails.merchantName = name;
+      transactionDetails.merchant = name;
     }
   }
 
@@ -32,16 +35,16 @@ const extractMerchantInfo = (message: TMessageType): ITransactionDetails => {
   if (match) {
     const nextWord = getNextWords(messageString, match);
     if (isNumber(nextWord)) {
-      transactionDetails.transactionId = nextWord;
-    } else if (transactionDetails.merchantName) {
+      transactionDetails.referenceNo = nextWord;
+    } else if (transactionDetails.merchant) {
       const [longestNumeric] = nextWord
         .split(/[^0-9]/gi)
         .sort((a, b) => b.length - a.length)[0];
       if (longestNumeric) {
-        transactionDetails.transactionId = longestNumeric;
+        transactionDetails.referenceNo = longestNumeric;
       }
     } else {
-      transactionDetails.merchantName = nextWord;
+      transactionDetails.merchant = nextWord;
     }
   }
 
