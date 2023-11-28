@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-// eslint-disable-next-line import/no-unresolved
-import test from 'ava';
+import { test, expect } from "vitest";
 
-import { getTransactionInfo } from '../lib/engine';
-import { IAccountType, ITransactionInfo } from '../lib/interface';
-import { padCurrencyValue } from '../lib/utils';
-
-import testCases from './testCases.json';
+import testCases from "./testCases.json";
+import {
+  IAccountType,
+  ITransactionInfo,
+  getTransactionInfo,
+} from "../src/index";
+import { padCurrencyValue } from "../src/library/utils";
 
 testCases.forEach((testCase, index) => {
-  test(`${index + 2}: ${testCase.name}`, (t) => {
+  test(`${index + 2}: ${testCase.name}`, () => {
     const expected: ITransactionInfo = {
       account: {
         type: testCase.accountType as IAccountType,
@@ -19,22 +20,25 @@ testCases.forEach((testCase, index) => {
       transactionAmount: testCase.transactionAmount
         ? padCurrencyValue(testCase.transactionAmount.toString())
         : null,
-      transactionType: testCase.transactionType as 'debit' | 'credit' | null,
+      transactionType: testCase.transactionType as "debit" | "credit" | null,
       balance: {
         available: testCase.balanceAvailable
           ? padCurrencyValue(testCase.balanceAvailable.toString())
           : null,
         outstanding: null,
       },
-      transactionId: testCase.transactionId?.toString() ?? null,
-      merchantName: testCase.merchantName?.toLowerCase() ?? null,
+      transactionDetails: {
+        transactionId: testCase.transactionId?.toString() ?? null,
+        merchantName: testCase.merchantName?.toLowerCase() ?? null,
+      },
     };
 
     // @ts-ignore
     if (testCase.balanceOutstanding) {
+      // @ts-ignore
       expected.balance.outstanding = padCurrencyValue(
         // @ts-ignore
-        testCase.balanceOutstanding
+        testCase.balanceOutstanding,
       );
     }
 
@@ -46,6 +50,6 @@ testCases.forEach((testCase, index) => {
 
     const actual = getTransactionInfo(testCase.message);
 
-    t.deepEqual(actual, expected);
+    expect(actual).to.deep.equal(expected);
   });
 });

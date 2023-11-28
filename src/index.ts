@@ -1,9 +1,9 @@
-import getAccount from './lib/account';
-import getBalance from './lib/balance';
-import extractMerchantInfo from './lib/merchant';
+import getAccount from "./library/account";
+import getBalance from "./library/balance";
+import extractMerchantInfo from "./library/merchant";
 
-export * from './lib/engine';
-export * from './lib/interface';
+export * from "./library/engine";
+export * from "./library/interface";
 export const getAccountInfo = getAccount;
 export const getBalanceInfo = getBalance;
 export const getMerchantInfo = extractMerchantInfo;

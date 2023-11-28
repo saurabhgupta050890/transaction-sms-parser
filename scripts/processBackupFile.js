@@ -1,14 +1,16 @@
-const csv = require('csvtojson');
-const path = require('path');
-const fs = require('fs/promises');
-const writeXlsxFile = require('write-excel-file/node');
-const smsParser = require('../build/main');
+import csv from "csvtojson";
+import path from "node:path";
+import fs from "node:fs/promises";
+import writeXlsxFile from "write-excel-file/node";
+import { getTransactionInfo } from "../dist/lib";
 
-const smsBackupsPath = path.join(__dirname, '..', 'data', 'csv');
+const root = new URL("..", import.meta.url);
 
-// const smsBackupFile = path.join(__dirname, '..', 'data', 'sms_backup.csv');
-const output = path.join(__dirname, '..', 'data', 'filtered.xlsx');
-const ignored = path.join(__dirname, '..', 'data', 'ignored.xlsx');
+const smsBackupsPath = new URL("data/csv", root);
+// console.log(smsBackupsPath);
+
+const output = new URL("data/filtred.xlsx", root);
+const ignored = new URL("data/ignored.xlsx", root);
 
 const isTransaction = (transactionObj) => {
   const {
@@ -26,31 +28,31 @@ const isTransaction = (transactionObj) => {
 
 const headers = [
   {
-    value: 'name',
+    value: "name",
   },
   {
-    value: 'message',
+    value: "message",
   },
   {
-    value: 'accountType',
+    value: "accountType",
   },
   {
-    value: 'accountName',
+    value: "accountName",
   },
   {
-    value: 'accountNo',
+    value: "accountNo",
   },
   {
-    value: 'transactionAmount',
+    value: "transactionAmount",
   },
   {
-    value: 'transactionType',
+    value: "transactionType",
   },
   {
-    value: 'balanceAvailable',
+    value: "balanceAvailable",
   },
   {
-    value: 'balanceOutstanding',
+    value: "balanceOutstanding",
   },
 ];
 
@@ -59,8 +61,11 @@ async function processSMS(dirPath) {
   const csvObjs = [];
 
   for (const file of files) {
-    if (file.endsWith('.csv')) {
-      const jsonArr = await csv().fromFile(path.join(smsBackupsPath, file));
+    if (file.endsWith(".csv")) {
+      const jsonArr = await csv().fromFile(
+        path.join(smsBackupsPath.pathname, file),
+      );
+      // console.log(jsonArr)
       csvObjs.push(...jsonArr);
     }
   }
@@ -74,7 +79,7 @@ async function processSMS(dirPath) {
   csvObjs.forEach((obj, index) => {
     const isPersonalMessage = /\d+/.test(obj.phoneNumber);
     const containsOtp = /otp/gi.test(obj.message?.toLowerCase());
-    const transactionObj = smsParser.getTransactionInfo(obj.message);
+    const transactionObj = getTransactionInfo(obj.message);
 
     if (index === 0) {
       ignoredData.push(Object.keys(obj).map((key) => ({ value: key })));
@@ -82,7 +87,7 @@ async function processSMS(dirPath) {
 
     if (!isPersonalMessage && !containsOtp && isTransaction(transactionObj)) {
       filteredData.push([
-        { value: '' },
+        { value: "" },
         { value: obj.message },
         { value: transactionObj.account.type },
         { value: transactionObj.account.name },

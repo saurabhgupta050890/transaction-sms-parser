@@ -1,5 +1,5 @@
-import getAccount from './account';
-import getBalance from './balance';
+import getAccount from "./account";
+import getBalance from "./balance";
 import {
   IAccountType,
   IBalance,
@@ -7,34 +7,34 @@ import {
   ITransactionInfo,
   TMessageType,
   TTransactionType,
-} from './interface';
-import extractMerchantInfo from './merchant';
-import { getProcessedMessage, padCurrencyValue, processMessage } from './utils';
+} from "./interface";
+import extractMerchantInfo from "./merchant";
+import { getProcessedMessage, padCurrencyValue, processMessage } from "./utils";
 
 export const getTransactionAmount = (message: TMessageType): string => {
   const processedMessage = getProcessedMessage(message);
-  const index = processedMessage.indexOf('rs.');
+  const index = processedMessage.indexOf("rs.");
 
   // If "rs." does not exist
   // Return ""
   if (index === -1) {
-    return '';
+    return "";
   }
   let money = message[index + 1];
 
-  money = money.replace(/,/g, '');
+  money = money.replace(/,/g, "");
 
   // If data is false positive
   // Look ahead one index and check for valid money
   // Else return the found money
   if (Number.isNaN(Number(money))) {
     money = message[index + 2];
-    money = money?.replace(/,/g, '');
+    money = money?.replace(/,/g, "");
 
     // If this is also false positive, return ""
     // Else return the found money
     if (Number.isNaN(Number(money))) {
-      return '';
+      return "";
     }
     return padCurrencyValue(money);
   }
@@ -48,23 +48,23 @@ export const getTransactionType = (message: TMessageType): TTransactionType => {
   const miscPattern =
     /(?:payment|spent|paid|used\s+at|charged|transaction\son|transaction\sfee|tran|booked|purchased|sent\s+to|purchase\s+of)/gi;
 
-  const messageStr = typeof message !== 'string' ? message.join(' ') : message;
+  const messageStr = typeof message !== "string" ? message.join(" ") : message;
 
   if (debitPattern.test(messageStr)) {
-    return 'debit';
+    return "debit";
   }
   if (creditPattern.test(messageStr)) {
-    return 'credit';
+    return "credit";
   }
   if (miscPattern.test(messageStr)) {
-    return 'debit';
+    return "debit";
   }
 
   return null;
 };
 
 export const getTransactionInfo = (message: string): ITransactionInfo => {
-  if (!message || typeof message !== 'string') {
+  if (!message || typeof message !== "string") {
     return {
       account: {
         type: IAccountType.ACCOUNT,
@@ -74,8 +74,7 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
       transactionAmount: null,
       balance: null,
       transactionType: null,
-      transactionId: null,
-      merchantName: null,
+      transactionDetails: null,
     };
   }
 
@@ -83,12 +82,12 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
   const account = getAccount(processedMessage);
   const availableBalance = getBalance(
     processedMessage,
-    IBalanceKeyWordsType.AVAILABLE
+    IBalanceKeyWordsType.AVAILABLE,
   );
   const transactionAmount = getTransactionAmount(processedMessage);
   const isValid =
     [availableBalance, transactionAmount, account.number].filter(
-      (x) => x !== ''
+      (x) => x !== "",
     ).length >= 2;
   const transactionType = isValid ? getTransactionType(processedMessage) : null;
   const balance: IBalance = { available: availableBalance, outstanding: null };
@@ -96,11 +95,11 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
   if (account && account.type === IAccountType.CARD) {
     balance.outstanding = getBalance(
       processedMessage,
-      IBalanceKeyWordsType.OUTSTANDING
+      IBalanceKeyWordsType.OUTSTANDING,
     );
   }
 
-  const { merchantName, transactionId } = extractMerchantInfo(message);
+  const transactionDetails = extractMerchantInfo(message);
 
   // console.log(processedMessage);
   // console.log(account, balance, transactionAmount, transactionType);
@@ -110,7 +109,6 @@ export const getTransactionInfo = (message: string): ITransactionInfo => {
     balance,
     transactionAmount,
     transactionType,
-    merchantName,
-    transactionId,
+    transactionDetails,
   };
 };
