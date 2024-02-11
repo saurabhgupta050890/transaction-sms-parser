@@ -46,18 +46,18 @@ export const getTransactionType = (message: TMessageType): TTransactionType => {
     /(?:credited|credit|deposited|added|received|refund|repayment)/gi;
   const debitPattern = /(?:debited|debit|deducted)/gi;
   const miscPattern =
-    /(?:payment|spent|paid|used\s+at|charged|transaction\son|transaction\sfee|tran|booked|purchased|sent\s+to|purchase\s+of)/gi;
+    /(?:payment|spent|paid|used\s+at|charged|transaction\son|transaction\sfee|tran|booked|purchased|sent\s+to|purchase\s+of|spent\s+on)/gi;
 
   const messageStr = typeof message !== "string" ? message.join(" ") : message;
 
   if (debitPattern.test(messageStr)) {
     return "debit";
   }
-  if (creditPattern.test(messageStr)) {
-    return "credit";
-  }
   if (miscPattern.test(messageStr)) {
     return "debit";
+  }
+  if (creditPattern.test(messageStr)) {
+    return "credit";
   }
 
   return null;
