@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.0.0...v3.0.1) (2024-02-11)
+
+
+### Bug Fixes
+
+* eslint fix ([55edd0f](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/55edd0f33ddf88f84c65bfa99bf136272f95bb25))
+
 ## [3.0.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v2.3.5...v3.0.0) (2023-11-28)
 
 

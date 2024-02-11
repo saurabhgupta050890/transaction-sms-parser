@@ -1,6 +1,6 @@
 {
   "name": "transaction-sms-parser",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A library to parse transaction sms text",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "type": "module",
   "main": "./dist/lib.umd.cjs",
   "module": "./dist/lib.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/lib.d.ts",
   "exports": {
     ".": {
       "import": "./dist/lib.js",
