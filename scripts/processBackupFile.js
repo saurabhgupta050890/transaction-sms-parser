@@ -18,7 +18,8 @@ const isTransaction = (transactionObj) => {
     transaction,
   } = transactionObj;
 
-  if (type || name || number || transaction.amount || transaction.type) {
+  // Valid transaction message should contain account info and transaction info atleast
+  if (type && (name || number) && transaction.amount && transaction.type) {
     return true;
   } else {
     return false;
