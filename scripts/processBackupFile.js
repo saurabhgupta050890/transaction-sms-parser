@@ -2,7 +2,7 @@ import csv from "csvtojson";
 import path from "node:path";
 import fs from "node:fs/promises";
 import writeXlsxFile from "write-excel-file/node";
-import { getTransactionInfo } from "../dist/lib";
+import { getTransactionInfo } from "../dist/lib.js";
 
 const root = new URL("..", import.meta.url);
 

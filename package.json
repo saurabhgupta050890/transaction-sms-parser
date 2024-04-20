@@ -7,9 +7,9 @@
     "url": "git+https://github.com/saurabhgupta050890/transaction-sms-parser.git"
   },
   "type": "module",
-  "main": "./dist/lib.umd.cjs",
-  "module": "./dist/lib.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "dist/lib.umd.js",
+  "module": "dist/lib.js",
+  "types": "src/index",
   "exports": {
     ".": {
       "import": "./dist/lib.js",
