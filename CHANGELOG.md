@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.2](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.0.1...v3.0.2) (2024-04-20)
+
+
+### Bug Fixes
+
+* balance and credit fixes for idfc card ([54496b6](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/54496b65211789f9c54afa91c7c5601823db83ca))
+* module export and vite configs ([14995dc](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/14995dc94c7d9b248efaa03b8a8f85bb9109604c))
+
 ### [3.0.1](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.0.0...v3.0.1) (2024-02-11)
 
 
