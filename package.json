@@ -9,7 +9,7 @@
   "type": "module",
   "main": "./dist/lib.umd.cjs",
   "module": "./dist/lib.js",
-  "types": "./dist/lib.d.ts",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/lib.js",

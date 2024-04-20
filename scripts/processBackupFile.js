@@ -9,17 +9,16 @@ const root = new URL("..", import.meta.url);
 const smsBackupsPath = new URL("data/csv", root);
 // console.log(smsBackupsPath);
 
-const output = new URL("data/filtred.xlsx", root);
+const output = new URL("data/filtered.xlsx", root);
 const ignored = new URL("data/ignored.xlsx", root);
 
 const isTransaction = (transactionObj) => {
   const {
     account: { type, name, number },
-    transactionAmount,
-    transactionType,
+    transaction,
   } = transactionObj;
 
-  if (type || name || number || transactionAmount || transactionType) {
+  if (type || name || number || transaction.amount || transaction.type) {
     return true;
   } else {
     return false;
@@ -47,6 +46,12 @@ const headers = [
   },
   {
     value: "transactionType",
+  },
+  {
+    value: "transactionId",
+  },
+  {
+    value: "merchantName",
   },
   {
     value: "balanceAvailable",
@@ -78,22 +83,33 @@ async function processSMS(dirPath) {
 
   csvObjs.forEach((obj, index) => {
     const isPersonalMessage = /\d+/.test(obj.phoneNumber);
-    const containsOtp = /otp/gi.test(obj.message?.toLowerCase());
+    const containsOtp = /(otp | one time password)/gi.test(
+      obj.message?.toLowerCase(),
+    );
     const transactionObj = getTransactionInfo(obj.message);
+    const messageSet = new Set();
 
     if (index === 0) {
       ignoredData.push(Object.keys(obj).map((key) => ({ value: key })));
     }
 
-    if (!isPersonalMessage && !containsOtp && isTransaction(transactionObj)) {
+    if (
+      !isPersonalMessage &&
+      !containsOtp &&
+      isTransaction(transactionObj) &&
+      !messageSet.has(obj.message)
+    ) {
+      messageSet.add(obj.message);
       filteredData.push([
         { value: "" },
         { value: obj.message },
         { value: transactionObj.account.type },
         { value: transactionObj.account.name },
         { value: transactionObj.account.number },
-        { value: transactionObj.transactionAmount },
-        { value: transactionObj.transactionType },
+        { value: transactionObj.transaction.amount },
+        { value: transactionObj.transaction.type },
+        { value: transactionObj.transaction.referenceNo },
+        { value: transactionObj.transaction.merchant },
         { value: transactionObj.balance.available },
         { value: transactionObj.balance.outstanding },
       ]);
