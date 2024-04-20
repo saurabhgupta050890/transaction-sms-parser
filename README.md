@@ -1,6 +1,13 @@
 # Transaction SMS Parser
 
 A library to parse transaction sms text to extract relevant information from it. A naive implementation using mostly regular expressions.
+Try the [Live App](https://transaction-tracker-9mqr.onrender.com) to check the functionality
+
+## Installation
+
+```
+npm install transaction-sms-parser
+```
 
 ## How to use
 
