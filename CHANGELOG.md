@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.3](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.0.2...v3.0.3) (2024-04-24)
+
+
+### Bug Fixes
+
+* backup process fixes ([79a2feb](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/79a2feb2b5aa0733cf65615bfd695b358b11bb8c))
+* fixed types export ([073ea06](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/073ea06d61dfb1b8b0ecaab1f7209f3b4efe7ae4))
+* test data processing changes ([418cf9d](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/418cf9dddb16a45c3d5af6b8ff23408651cc1e79))
+
 ### [3.0.2](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.0.1...v3.0.2) (2024-04-20)
 
 

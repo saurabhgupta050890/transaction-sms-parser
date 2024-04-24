@@ -1,6 +1,6 @@
 {
   "name": "transaction-sms-parser",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "A library to parse transaction sms text",
   "repository": {
     "type": "git",
