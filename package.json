@@ -9,11 +9,12 @@
   "type": "module",
   "main": "dist/lib.umd.js",
   "module": "dist/lib.js",
-  "types": "src/index",
+  "types": "dist/src/index",
   "exports": {
     ".": {
       "import": "./dist/lib.js",
-      "require": "./dist/lib.umd.cjs"
+      "require": "./dist/lib.umd.cjs",
+      "types": "./dist/src/index.d.ts"
     }
   },
   "files": [
