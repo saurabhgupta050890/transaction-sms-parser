@@ -1,5 +1,4 @@
-// import { upiKeywords } from '../constants';
-import { upiKeywords } from "./constants";
+import { upiHandles, upiKeywords } from "./constants";
 import { TMessageType } from "./interface";
 import { getNextWords, getProcessedMessage, isNumber } from "./utils";
 
@@ -45,6 +44,18 @@ const extractMerchantInfo = (message: TMessageType) => {
       }
     } else {
       transactionDetails.merchant = nextWord;
+    }
+
+    if (!transactionDetails.merchant) {
+      const upiRegex = new RegExp(
+        `[a-zA-Z0-9_-]+(${upiHandles.join("|")})`,
+        "gi",
+      );
+      const matches = messageString.match(upiRegex);
+      if (matches && matches.length > 0) {
+        const merchant = matches[0].split(" ").pop(); // return only first match
+        transactionDetails.merchant = merchant ?? null;
+      }
     }
   }
 

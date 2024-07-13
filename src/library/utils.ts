@@ -21,7 +21,7 @@ export const processMessage = (message: string): string[] => {
   // convert to lower case
   let messageStr = message.toLowerCase();
   // remove '-'
-  messageStr = messageStr.replace(/-/g, "");
+  //messageStr = messageStr.replace(/-/g, "");
   // remove '!'
   messageStr = messageStr.replace(/!/g, "");
   // remove ':'
