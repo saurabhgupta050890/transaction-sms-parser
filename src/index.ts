@@ -5,13 +5,13 @@ import extractMerchantInfo from "./library/merchant";
 
 export { IAccountType, IBalanceKeyWordsType } from "./library/interface";
 export type {
-  IAccountInfo,
-  IBalance,
-  ICombinedWords,
-  ITransaction,
-  ITransactionInfo,
-  TMessageType,
-  TTransactionType,
+	IAccountInfo,
+	IBalance,
+	ICombinedWords,
+	ITransaction,
+	ITransactionInfo,
+	TMessageType,
+	TTransactionType,
 } from "./library/interface";
 export const getAccountInfo = getAccount;
 export const getBalanceInfo = getBalance;
