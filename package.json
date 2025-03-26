@@ -40,7 +40,7 @@
     "test": "run-s test:pre test:unit",
     "test:unit": "vitest run",
     "test:ui": "vitest ui",
-    "test:pre": "run-stest:check test:spelling",
+    "test:pre": "run-s test:check test:spelling",
     "test:check": "biome check",
     "test:spelling": "cspell \"{README.md,.github/*.md,docs/*.md}\"",
     "fix": "biome check --write",
