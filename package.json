@@ -44,7 +44,11 @@
     "test:check": "biome check",
     "test:spelling": "cspell \"{README.md,.github/*.md,docs/*.md}\"",
     "fix": "biome check --write",
-    "release": "standard-version"
+    "release": "standard-version",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,json}": ["biome check --write --no-errors-on-unmatched"]
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -67,6 +71,7 @@
     "vite": "^5.0.2",
     "vite-plugin-dts": "^3.6.3",
     "vitest": "^0.34.6",
-    "write-excel-file": "^1.4.27"
+    "write-excel-file": "^1.4.27",
+    "husky": "^8.0.0"
   }
 }
