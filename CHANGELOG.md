@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.2](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.3.1...v3.3.2) (2026-05-27)
+
+
+### Bug Fixes
+
+* add scripts/message.js to ignore list in biome.json ([19c747b](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/19c747b3efe57c2109b5df4ad39a14ff24075578))
+
 ### [3.3.1](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.3.0...v3.3.1) (2026-05-27)
 
 
