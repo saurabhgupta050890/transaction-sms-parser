@@ -8,7 +8,7 @@
 	"files": {
 		"include": ["src/**/*.ts", "tests/**/*.ts", "scripts/**/*.js"],
 		"ignoreUnknown": false,
-		"ignore": ["node_modules", "dist"]
+		"ignore": ["node_modules", "dist", "scripts/message.js"]
 	},
 	"formatter": {
 		"enabled": true,
