@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.3.0...v3.3.1) (2026-05-27)
+
+
+### Bug Fixes
+
+* update regex patterns for slice and one card keywords ([7077ebd](https://github.com/saurabhgupta050890/transaction-sms-parser/commit/7077ebdd274bff93d944d5e43ad4cb66fad4d23d))
+
 ## [3.3.0](https://github.com/saurabhgupta050890/transaction-sms-parser/compare/v3.0.3...v3.3.0) (2024-07-13)
 
 
