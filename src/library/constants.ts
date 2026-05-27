@@ -47,12 +47,12 @@ export const combinedWords: ICombinedWords[] = [
 		type: IAccountType.ACCOUNT,
 	},
 	{
-		regex: /slice\scard/g,
+		regex: /slice\s*(credit|credt)?\s*card/g,
 		word: "slice_card",
 		type: IAccountType.CARD,
 	},
 	{
-		regex: /one\s*card/g,
+		regex: /one\s*(credit|credt)?\s*card/g,
 		word: "one_card",
 		type: IAccountType.CARD,
 	},
